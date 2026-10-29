@@ -1,15 +1,16 @@
 ---
 title: "Types & literals"
-description: "Understand Chuchu integer, floating-point, boolean, and fixed-size array types and numeric conversion rules."
+description: "Understand Chuchu integer, floating-point, boolean, string, and fixed-size array types and numeric conversion rules."
 ---
 
-Chuchu checks types before generating LLVM code. Variables infer their types; function signatures use lowercase `int`, `float`, and `bool` annotations.
+Chuchu checks types before generating LLVM code. Variables infer their types; function signatures use lowercase `int`, `float`, `bool`, and `string` annotations.
 
 | Type | Examples | Current backend representation |
 |---|---|---|
 | `int` | `0`, `42`, `-7` | Signed 64-bit integer |
 | `float` | `1.0`, `3.14159`, `2e-3` | 64-bit floating point |
 | `bool` | `true`, `false` | Boolean |
+| `string` | `"hello"`, `"世界 🌍"` | Owned UTF-8 text |
 | Numeric array | `[1, 2]`, `[1.5, 2.5]` | Fixed-size value containing 1–256 elements |
 
 ## Integers
@@ -51,14 +52,17 @@ There is no implicit float-to-int conversion or explicit cast syntax.
 
 Array type identity includes element type and length. `[1, 2]` and `[1, 2, 3]` have different types, as do `[1, 2]` and `[1.0, 2.0]`. Array elements must all have the same numeric type; arrays do not widen mixed elements.
 
-Empty arrays, boolean arrays, nested arrays, and arrays above 256 elements are unsupported. Array annotations in function signatures are also unsupported. See [arrays](arrays.md).
+Empty arrays, boolean arrays, string arrays, nested arrays, and arrays above 256 elements are unsupported. Array annotations in function signatures are also unsupported. See [arrays](arrays.md).
 
 ## Output formatting
 
-`show` prints one scalar followed by a newline:
+`show` prints one scalar or string followed by a newline:
 
 - Integers use signed decimal output.
 - Floats use C `printf` format `%.15g`; `2.0` can print as `2`.
 - Booleans print `true` or `false`.
+- Strings print their text without surrounding quotes. Percent signs are literal text.
 
-Strings, characters, null values, objects, and user-defined types are not currently implemented.
+Strings are immutable values; see [strings](strings.md) for escapes, Unicode length, equality, and ownership. There is no implicit conversion between strings and numbers or booleans.
+
+Character literals, null values, objects, and user-defined types are not currently implemented.

@@ -58,7 +58,7 @@ const config: Config = {
       ],
       copyright: `© ${new Date().getFullYear()} Chuchu. Compiler released under the MIT License.`,
     },
-    prism: {theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['rust', 'bash', 'json']},
+    prism: {theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['rust', 'bash', 'json', 'powershell']},
   } satisfies Preset.ThemeConfig,
 };
 export default config;

@@ -14,7 +14,7 @@ cargo build --release
 python3 benchmarks/run.py --output benchmarks/results/my-run.json
 ```
 
-The runner measures all four Chuchu optimization levels, optimized C and Rust references when available, Python references, a vectorization probe, and compiler-throughput inputs. The current harness is designed around the project's macOS environment.
+The runner measures all four Chuchu optimization levels, optimized C and Rust references when available, Python references, a vectorization probe, and compiler-throughput inputs. The harness has portable host execution paths; optional tools and RSS collection vary by host.
 
 Default sampling uses one warmup, seven execution samples, and three compilation samples. Every timed executable must produce its expected result. Compilation and execution are timed separately.
 
@@ -37,12 +37,12 @@ Workloads cover integer and float loops, function calls, recursion, nested loops
 - Python uses its own integer/list semantics and includes interpreter overhead.
 - macOS peak RSS is a separate single process-level measurement.
 
-Saved JSON and Markdown reports are historical measurements on a particular host, not guarantees for your machine. The narrative [Phase 7 report](https://github.com/chuchu-lang/chuchu-core/blob/main/docs/phase7-performance-report.md) and saved result files may describe different runs; compare timestamps, hashes, and raw data before quoting numbers.
+Saved JSON and Markdown reports are historical measurements on a particular host, not guarantees for your machine. Compare the [saved result files](https://github.com/chuchu-lang/chuchu-core/tree/main/benchmarks/results), timestamps, hashes, and raw data before quoting numbers. These numerical workloads do not measure string copying or concatenation.
 
 ## Compare runs
 
 ```bash
-python3 benchmarks/compare.py benchmarks/results/phase7-full.json benchmarks/results/my-run.json --output benchmarks/results/comparison.json
+python3 benchmarks/compare.py benchmarks/results/macos-arm64-full.json benchmarks/results/my-run.json --output benchmarks/results/comparison.json
 ```
 
 The comparator checks environment, workload hashes, and compilation policy. With default thresholds, noisy data is labeled unreliable; separated quartile intervals and a slowdown above 10% are flagged as a possible regression. This is a screening heuristic, not a significance test.

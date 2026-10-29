@@ -53,6 +53,18 @@ Output: `true`, `false`, `true`.
 
 NaN follows ordered floating comparisons: equality and ordered comparisons with NaN are false, while `!=` with NaN is true. Comparison operators share a precedence level; use separate expressions rather than mathematical comparison chains such as `1 < x < 10`.
 
+## String operators
+
+Two strings support `+` for concatenation and `==` / `!=` for content equality:
+
+```chuchu
+show "Hello, " + "world!"
+show "same" == "sa" + "me"
+```
+
+Output: `Hello, world!`, then `true`. Strings do not support ordering comparisons,
+other arithmetic, or implicit number conversion. See [strings](strings.md).
+
 ## Array operators
 
 `+` and `*` operate element by element on arrays with identical numeric element types and lengths. Arrays do not support subtraction, division, comparison, or scalar broadcasting.

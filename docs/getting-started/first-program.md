@@ -22,7 +22,7 @@ cheeku hello.chuchu -o hello
 30
 ```
 
-`assign` introduces a variable. `show` prints a scalar value followed by a newline. Each statement is separated by a newline.
+`assign` introduces a variable, followed directly by its initial value. `show` prints a scalar or string followed by a newline. Each statement is separated by a newline.
 
 :::tip Using a compiler you have not installed
 Replace `cheeku` with the path to your release binary, such as `./target/release/cheeku` from the compiler repository.
@@ -41,6 +41,18 @@ while counter < 3 {
 ```
 
 This prints `0`, `1`, and `2` on separate lines.
+
+## Work with text
+
+```chuchu
+assign name "world 🌍"
+show "Hello, " + name + "!"
+show len(name)
+```
+
+This prints `Hello, world 🌍!`, then `7`. Strings support escapes, concatenation,
+content equality and typed function parameters. See [strings](../language/strings.md)
+for Unicode length rules.
 
 ## Write a function
 

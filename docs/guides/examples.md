@@ -1,6 +1,6 @@
 ---
 title: "Examples"
-description: "Run complete Chuchu examples for arithmetic, recursion, numerical arrays, and nested loops."
+description: "Run complete Chuchu examples for arithmetic, recursion, strings, numerical arrays, and nested loops."
 ---
 
 Each example below is a complete program. Save it to a `.chuchu` file, then compile and run it:
@@ -9,6 +9,20 @@ Each example below is a complete program. Save it to a `.chuchu` file, then comp
 cheeku example.chuchu -o example
 ./example
 ```
+
+## A string greeting
+
+```chuchu
+function greet(name: string) -> string {
+    return "Hello, " + name + "!"
+}
+assign name "دنیا 🌍"
+show greet(name)
+show len(name)
+```
+
+Output: `Hello, دنیا 🌍!`, then `6`. `len` counts Unicode scalar values,
+including the space and emoji. See [strings](../language/strings.md).
 
 ## Circle area
 
@@ -77,6 +91,6 @@ Output: `3`.
 
 ## More examples in the repository
 
-The [compiler examples directory](https://github.com/chuchu-lang/chuchu-core/tree/main/examples) contains arithmetic, conditions, loops, functions, floats, arrays, and a syntax smoke test. The [benchmark sources](https://github.com/chuchu-lang/chuchu-core/tree/main/benchmarks/chuchu) exercise longer numerical workloads.
+The [compiler examples directory](https://github.com/chuchu-lang/chuchu-core/tree/main/examples) contains strings, arithmetic, conditions, loops, functions, floats, arrays, and a syntax smoke test. The [benchmark sources](https://github.com/chuchu-lang/chuchu-core/tree/main/benchmarks/chuchu) exercise longer numerical workloads.
 
 For a complete list of supported constructs, see [language status](../project/status.md).

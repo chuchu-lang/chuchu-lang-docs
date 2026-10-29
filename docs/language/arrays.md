@@ -67,11 +67,11 @@ show sum(values)
 Output: `3`, `7.5`.
 
 :::note Printing arrays
-`show` accepts scalars, so `show values` is a type error. Print an indexed element, `len(values)`, or `sum(values)` instead.
+`show` accepts scalars and strings, so `show values` is a type error. Print an indexed element, `len(values)`, or `sum(values)` instead.
 :::
 
 ## Current limits
 
-Empty, mixed numeric, boolean, and nested arrays are rejected. Arrays cannot grow, cannot broadcast against scalars, and cannot be annotated in function signatures. The 256-element cap is enforced by the checker and code generator.
+Empty, mixed numeric, boolean, string, and nested arrays are rejected. Arrays cannot grow, cannot broadcast against scalars, and cannot be annotated in function signatures. The 256-element cap is enforced by the checker and code generator.
 
 The current compiler stores arrays and temporaries in function-entry stack allocations. LLVM optimization may simplify or eliminate them; this is an implementation detail, not a heap allocation API.

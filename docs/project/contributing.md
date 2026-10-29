@@ -14,11 +14,29 @@ Follow the [installation guide](../getting-started/installation.md), then run fr
 
 ```bash
 cargo fmt --all -- --check
-cargo test
-cargo clippy --all-targets -- -D warnings
+cargo build --locked
+cargo test --locked
+cargo clippy --locked --all-targets -- -D warnings
+cargo build --locked --release
 ```
 
-The native integration suites are currently macOS-gated. A passing suite on another platform does not establish native platform support.
+The shared native suites run on the four host targets in CI. Tests compile and
+execute programs; retain the O0–O3 behavior matrix. Run the debugger smoke test
+with LLDB installed:
+
+```bash
+python3 .github/scripts/debugger-smoke.py --compiler target/release/cheeku
+```
+
+For string storage changes, use a compatible Clang 23+ driver:
+
+```bash
+python3 .github/scripts/string-memory-smoke.py --compiler target/release/cheeku --clang /path/to/clang --sanitize
+```
+
+This checks allocation balance, bounded live storage, allocation failures, and
+lifetimes under AddressSanitizer. A passing local suite validates that host;
+check target-specific CI results before claiming compatibility elsewhere.
 
 For benchmark harness changes:
 

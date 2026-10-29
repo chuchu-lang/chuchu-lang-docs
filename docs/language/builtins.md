@@ -11,7 +11,7 @@ Built-ins are called by name in expressions. Their names cannot be used for user
 | `sqrt(x)` | `float` | `float` | Square root |
 | `min(a, b)` | Numeric scalars | `float` if either input is float, otherwise `int` | Minimum |
 | `max(a, b)` | Numeric scalars | `float` if either input is float, otherwise `int` | Maximum |
-| `len(a)` | Numeric array | `int` | Number of elements |
+| `len(a)` | Numeric array or string | `int` | Array element count, or Unicode scalar count for strings |
 | `sum(a)` | Numeric array | Scalar element type | Ordered sum |
 
 ## Examples
@@ -43,10 +43,11 @@ show sum([1, 2, 3])
 - Floating `min` and `max` lower to C `fmin` and `fmax`. With one NaN argument and one numeric argument, they return the numeric value.
 - `abs` of the minimum signed integer fails because its positive value cannot fit in the current integer representation.
 - Integer `sum` checks every addition for overflow.
+- `len("é中🌍")` is `3`; combining marks count separately. See [string length](strings.md#unicode-length).
 - `len` still evaluates its array argument, so it does not suppress failures in an expression that constructs the array.
 
 ## Show
 
-`show expression` is a statement, not a function call. It accepts integer, float, or boolean scalars and prints a trailing newline. See [output formatting](types.md#output-formatting).
+`show expression` is a statement, not a function call. It accepts integer, float, or boolean scalars and strings and prints a trailing newline. See [output formatting](types.md#output-formatting).
 
 There is no standard library module/import system, input function, or file I/O API in the current language.

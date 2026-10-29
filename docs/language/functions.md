@@ -13,11 +13,23 @@ function add(x: int, y: int) -> int {
 show add(10, 20)
 ```
 
-The output is `30`. Every parameter requires a type annotation, and every function declares its return type after `->`. Supported annotations are `int`, `float`, and `bool`.
+The output is `30`. Every parameter requires a type annotation, and every function declares its return type after `->`. Supported annotations are `int`, `float`, `bool`, and `string`.
 
 Calls require the declared number of arguments. A float parameter accepts an integer argument through numeric widening. There are no default parameters, overloads, or variadic user functions.
 
 Function calls are expressions. To observe a result, use it in a declaration, reassignment, `show`, condition, return, or another expression. Standalone expression statements such as `add(1, 2)` are not supported.
+
+## String parameters and returns
+
+```chuchu
+function greet(name: string) -> string {
+    return "Hello, " + name + "!"
+}
+show greet("world")
+```
+
+Output: `Hello, world!`. Strings have value semantics: returning a local string
+keeps the returned text alive after the function exits. See [strings](strings.md).
 
 ## Forward calls and recursion
 
@@ -65,6 +77,6 @@ Arrays can be local variables inside functions, but array parameter and return a
 
 Duplicate function names are rejected. Built-in and runtime names are reserved for function declarations:
 
-`abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, and `fabs`.
+`abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
 
 Functions are called by name; first-class function values and closures are not implemented.

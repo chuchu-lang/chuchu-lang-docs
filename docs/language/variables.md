@@ -5,7 +5,7 @@ description: "Declare and reassign Chuchu variables, understand lexical scope, a
 
 ## Declare a variable
 
-Use `assign` for new declarations. The earlier `set x to 5` and `assign x to 5` spellings are no longer accepted. To update a declared variable, continue to use `reassign x 6`.
+Use `assign` for new declarations and `reassign` to change an existing value. Write the expression directly after the name; the older `to` separator is no longer accepted.
 
 Use `assign name expression`:
 

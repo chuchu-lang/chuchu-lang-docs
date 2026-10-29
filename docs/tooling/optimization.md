@@ -13,9 +13,13 @@ Cheeku uses LLVM's standard optimization pipelines. The default is **O2**, with 
 | `-O3` | `default<O3>` | More aggressive standard optimization |
 
 ```bash
-cheeku program.chuchu -O0 -o program_debug
+cheeku program.chuchu --debug -o program_debug
 cheeku program.chuchu -O3 -o program_fast
 ```
+
+`--debug` includes source-level symbols and defaults to O0. `-O0` alone does not
+add symbols; `-g` adds them at the selected optimization level. See [native
+debugging](debugging.md).
 
 O0 still lowers LLVM instructions into machine code. O3 is not guaranteed to produce faster or smaller executables than O2.
 

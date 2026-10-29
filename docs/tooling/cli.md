@@ -1,17 +1,19 @@
 ---
 title: "Compiler CLI"
-description: "Reference every Cheeku compiler flag: optimization, output paths, CPU policy, timings, LLVM IR, and assembly."
+description: "Reference every Cheeku compiler flag: optimization, output paths, debug builds, CPU policy, timings, LLVM IR, and assembly."
 ---
 
 ```text
-cheeku <source.chuchu> [-O0|-O1|-O2|-O3] [-o <executable>] [--cpu generic|native] [--time-compilation] [--emit-ir <file>] [--emit-assembly <file>] [--no-vectorize]
+cheeku <source.chuchu> [--debug|-g] [-O0|-O1|-O2|-O3] [-o <executable>] [--cpu generic|native] [--time-compilation] [--emit-ir <file>] [--emit-assembly <file>] [--no-vectorize]
 ```
 
 The input must have a `.chuchu` extension. Options follow the source path; output and optimization flags can appear in either order. Unknown flags and repeated options are errors.
 
 | Option | Default | Purpose |
 |---|---|---|
-| `-o <path>` | `main` in the working directory | Executable destination |
+| `-o <path>` | `main` on macOS/Linux; `main.exe` on Windows | Executable destination |
+| `--debug` | Off | Full symbols; O0 unless an explicit `-O*` is supplied |
+| `-g` | Off | Full symbols at the selected optimization level |
 | `-O0`, `-O1`, `-O2`, `-O3` | `-O2` | Optimization level |
 | `--cpu generic` | Selected | Generic CPU for detected host architecture |
 | `--cpu native` | Off | Host-specific CPU/features |
@@ -35,13 +37,25 @@ cheeku "my source.chuchu" -o "my program"
 ./"my program"
 ```
 
+## Debug builds
+
+```bash
+cheeku hello.chuchu --debug -o hello_debug
+lldb ./hello_debug
+```
+
+`--debug` defaults to O0, while `-g` leaves the default O2 or an explicitly
+selected level in place. An explicit `-O*` overrides the `--debug` profile in
+either argument order. Use an `.exe` output on Windows. Symbol sidecars and
+LLDB/editor setup are covered in [native debugging](debugging.md).
+
 ## Inspect generated code
 
 ```bash
 cheeku numerical.chuchu -O3 --emit-ir numerical.ll --emit-assembly numerical.s -o numerical
 ```
 
-Artifact paths must differ from the input and each other. Existing source/artifact aliases are checked using path normalization and canonicalization.
+Artifact paths, including generated symbol sidecars, must differ from the input and each other. Existing source/artifact aliases are checked using path normalization and canonicalization.
 
 ## Compilation timing
 
@@ -60,7 +74,7 @@ One JSON object is written to stderr after success. Values are measured seconds:
 | `target_setup_s` | Native target configuration |
 | `optimization_s` | Optional passes and verification |
 | `object_s` | Final verification and object emission/write |
-| `link_s` | System linker invocation |
+| `link_s` | Linking, symbol finalization and artifact publication |
 | `total_s` | Compiler API work |
 
 Total time need not equal the sum of stages. CLI process startup and timing output are outside API total. See [performance](performance.md) for measurement details.

@@ -5,7 +5,7 @@ description: "Write Chuchu if/else branches and while loops with boolean conditi
 
 ## Conditions
 
-`if` and `while` require a `bool` expression. Numbers are not implicitly treated as true or false.
+`if` and `while` require a `bool` expression. Numbers and strings are not implicitly treated as true or false.
 
 ## If and else
 

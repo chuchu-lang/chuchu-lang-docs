@@ -1,85 +1,153 @@
 ---
 title: "Installation"
-description: "Build and install the Cheeku compiler on macOS with Rust, LLVM 23.1, and Xcode command line tools."
+description: "Build Cheeku on macOS, Linux x64 GNU, or Windows x64 MSVC with Rust and the pinned LLVM 23.1 toolchain."
 ---
 
-The currently validated setup is **macOS on Apple Silicon**. Cheeku requires Rust with Edition 2024 support, LLVM **23.1.x**, and a system Clang linker.
+Cheeku is a host-native compiler for macOS (Apple Silicon or Intel), Linux x64
+GNU, and Windows x64 MSVC. It does not provide cross-OS compilation. See
+[platform validation](../project/status.md#platform-validation) for current
+compiler, string, and debugger evidence.
 
-## 1. Prepare the tools
+## Requirements
 
-Install [Rust](https://www.rust-lang.org/tools/install) and [Homebrew](https://brew.sh/) if you do not already have them. Install the Xcode command line tools when needed:
+Install Git, [Rust through rustup](https://rustup.rs/), and Python 3.12 or newer.
+Rust 1.88+ is the crate minimum. The setup below selects Rust 1.99.1 and LLVM
+23.1.4 to match the repository's pinned CI toolchain. The compiler's Inkwell
+configuration requires LLVM **23.1.x**.
 
-```bash
-xcode-select --install
-```
-
-Check that Rust and Clang are available:
-
-```bash
-rustc --version
-cargo --version
-xcrun clang --version
-```
-
-## 2. Install and check LLVM
-
-```bash
-brew install llvm
-export LLVM_SYS_231_PREFIX="$(brew --prefix llvm)"
-"$LLVM_SYS_231_PREFIX/bin/llvm-config" --version
-```
-
-The reported LLVM version must be **23.1.x**. The compiler's Inkwell configuration targets that version specifically. If Homebrew provides a different LLVM version, use a matching LLVM installation and set `LLVM_SYS_231_PREFIX` to its installation prefix.
-
-Keep the environment variable set whenever you build, test, or install Cheeku. To persist it, add the export to your shell configuration after confirming that the prefix points to the correct version.
-
-## 3. Build Cheeku
+Clone the compiler repository:
 
 ```bash
 git clone https://github.com/chuchu-lang/chuchu-core.git
 cd chuchu-core
-cargo build --release
 ```
 
-The compiler is available at `./target/release/cheeku`.
+Run the following setup for your host from that directory. LLVM provisioning
+checks downloaded archives and builds from source on macOS and Windows. The
+first run can take considerable time; keep the SDK directory for later builds.
+
+## macOS
+
+Install Xcode command line tools and the source-build prerequisites:
 
 ```bash
-./target/release/cheeku --help
+xcode-select --install
+brew install python cmake ninja
+rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
+rustup override set 1.99.1
 ```
 
-## 4. Install the command
-
-From the `chuchu-core` directory, with the same LLVM environment configured:
+Provision LLVM and configure the current terminal:
 
 ```bash
-cargo install --path .
+python3 .github/scripts/provision-llvm.py --directory "$PWD/target/llvm-sdk"
+export LLVM_SYS_231_PREFIX="$(cat target/llvm-sdk/prefix.txt)"
+"$LLVM_SYS_231_PREFIX/bin/llvm-config" --version
+xcrun clang --version
+```
+
+LLVM should report `23.1.4`. Do not set `DYLD_LIBRARY_PATH`; the compiler's build
+script configures its LLVM library search path. An already-installed compatible
+Homebrew LLVM can also be selected with `LLVM_SYS_231_PREFIX`, but check that its
+reported version is 23.1.x rather than assuming an unversioned package matches.
+
+## Linux
+
+For Ubuntu/Debian, install the native linker and SDK dependencies. Other
+GNU-based distributions need equivalent packages. Ensure Python is 3.12+.
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git build-essential clang python3 libtinfo6 libxml2-dev libzstd-dev zlib1g-dev xz-utils
+rustup toolchain install 1.99.1 --profile minimal --component rustfmt,clippy
+rustup override set 1.99.1
+python3 .github/scripts/provision-llvm.py --directory "$PWD/target/llvm-sdk"
+export LLVM_SYS_231_PREFIX="$(cat target/llvm-sdk/prefix.txt)"
+export PATH="$LLVM_SYS_231_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$LLVM_SYS_231_PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+"$LLVM_SYS_231_PREFIX/bin/llvm-config" --version
+clang --version
+```
+
+LLVM should report `23.1.4`. This target uses GNU/Linux and the host C library;
+Android and musl Linux are not part of the current target matrix.
+
+## Windows
+
+Install Git, Python 3.12+, Rust's x64 MSVC toolchain, and Visual Studio Build
+Tools with **Desktop development with C++**, the x64 MSVC tools, and a Windows
+SDK. Open **x64 Developer PowerShell for Visual Studio** so linker libraries are
+available, then run:
+
+```powershell
+rustup toolchain install 1.99.1-x86_64-pc-windows-msvc --profile minimal --component rustfmt,clippy
+rustup override set 1.99.1-x86_64-pc-windows-msvc
+python -m pip install cmake ninja
+python .github/scripts/provision-llvm.py --directory "$PWD/target/llvm-sdk"
+$env:LLVM_SYS_231_PREFIX = (Get-Content target/llvm-sdk/prefix.txt).Trim()
+$env:PATH = "$env:LLVM_SYS_231_PREFIX\bin;$env:PATH"
+& "$env:LLVM_SYS_231_PREFIX\bin\llvm-config.exe" --version
+clang-cl.exe --version
+```
+
+LLVM should report `23.1.4`. The small LLVM installer alone is insufficient for
+this Rust compiler build; use the repository's SDK provisioner.
+
+## Build and install Cheeku
+
+After configuring your host toolchain:
+
+```bash
+cargo build --locked --release
+cargo test --locked
+```
+
+The compiler is `target/release/cheeku` on macOS/Linux and
+`target\release\cheeku.exe` on Windows. Check it with `--help`.
+
+To install the `cheeku` command on your Cargo binary path:
+
+```bash
+cargo install --path . --locked
 cheeku --help
 ```
 
-Ensure Cargo's binary directory is on your `PATH`. A standard Rust installation uses `~/.cargo/bin`.
+Keep `LLVM_SYS_231_PREFIX` set for builds, tests, and installation. In a new
+terminal, reapply the host-specific environment assignments. On Windows, reopen
+the x64 developer shell. Add Cargo's binary directory to `PATH` when necessary.
 
-## 5. Compile the included example
+## Compile the included example
+
+On macOS/Linux:
 
 ```bash
-cheeku examples/main.chuchu -o hello
-./hello
+./target/release/cheeku examples/main.chuchu -o target/hello
+./target/hello
 ```
 
-```text title="Output"
-35
+On Windows:
+
+```powershell
+.\target\release\cheeku.exe examples/main.chuchu -o target/hello.exe
+.\target\hello.exe
 ```
 
-The included example declares `x = 10` and `y = 20`, then reassigns `x` to `15` before printing their sum.
+Output: `35`. Compilation and execution are separate steps. The default output
+is `main` on macOS/Linux and `main.exe` on Windows. An explicit `-o` preserves the
+filename; include `.exe` yourself for normal Windows execution.
+
+Try `examples/strings.chuchu` for UTF-8 text, or follow
+[native debugging](../tooling/debugging.md) to build with source symbols.
 
 ## Troubleshooting installation
 
 | Symptom | Check |
 |---|---|
-| LLVM cannot be found | Set `LLVM_SYS_231_PREFIX` and confirm `llvm-config` reports 23.1.x. |
-| Clang cannot start | Confirm `xcrun clang --version` works and command line tools are installed. |
-| `cheeku` is not found | Use `./target/release/cheeku` or add Cargo's binary directory to `PATH`. |
-| Native output fails on another machine | Build on the destination platform; this is currently a host-native compiler. Avoid `--cpu native` when host-specific features are unwanted. |
-
-Linux and Windows are not validated by this project. See [platform status](../project/status.md) before attempting a port.
+| LLVM cannot be found | Set `LLVM_SYS_231_PREFIX`; confirm `llvm-config` reports 23.1.x. |
+| Clang cannot start | Check `xcrun clang` on macOS, `clang` on Linux, or `clang-cl.exe` and the x64 developer environment on Windows. |
+| Windows linker libraries are missing | Install the C++ tools/SDK and reopen x64 Developer PowerShell. |
+| `cheeku` is not found | Use the release binary path or add Cargo's binary directory to `PATH`. |
+| Native output fails on another machine | Build on the destination OS/architecture; avoid `--cpu native` when host-specific features are unwanted. |
+| A locked Windows executable cannot be replaced | Stop the process using the output and compile again; the existing file is retained on failure. |
 
 **Next:** [Write your first program](first-program.md).

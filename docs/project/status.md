@@ -8,12 +8,15 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 ## Implemented
 
 - Inferred local variables and typed reassignment.
-- Signed integers, floats, booleans, and homogeneous fixed-size numeric arrays.
+- Signed integers, floats, booleans, immutable UTF-8 strings, and homogeneous fixed-size numeric arrays.
 - Arithmetic, comparisons, grouping, and unary negation.
 - `if` / `else`, `while`, lexical scope, and block shadowing.
 - Top-level typed functions, forward calls, recursion, and mutual recursion.
 - Numerical built-ins: `abs`, `sqrt`, `min`, `max`, `sum`, `len`.
-- Scalar output through `show`.
+- Scalar and string output through `show`.
+- String concatenation, content equality, Unicode scalar length, and typed string functions.
+- Source excerpts, line/column diagnostics, carets, and repair guidance.
+- Native debug metadata, LLDB inspection, and `--debug` / `-g` build flags.
 - Native object emission and executable linking.
 - O0–O3 optimization, CPU selection, timing JSON, IR and assembly output.
 - Runtime checks for integer arithmetic, division, and array bounds.
@@ -22,16 +25,29 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 
 | Area | Status |
 |---|---|
-| Platforms | Validated on macOS Apple Silicon; Linux/Windows unvalidated |
+| Platforms | macOS ARM64/Intel, Linux x64 GNU, Windows x64 MSVC are native targets; see validation details below |
 | Arrays | 1–256 homogeneous numeric elements; no element assignment |
-| Function signatures | Scalar parameter and return annotations only |
-| Text | No strings, characters, or comments |
+| Function signatures | `int`, `float`, `bool`, and `string`; no array annotations |
+| Text | Strings implemented; no NUL bytes, indexing, interpolation, character literals, or comments |
 | Control flow | No `for`, `break`, `continue`, or logical operators |
 | Modules and data | No imports, user-defined types, dynamic collections, or file I/O API |
 | Runtime | No language-level input API, JIT, GPU execution, or automatic parallelism |
-| Tooling | No official language server or browser playground in this codebase |
+| Tooling | Native debugging implemented; no Chuchu expression evaluator, official language server, or browser playground |
 
 These are implementation boundaries, not announced roadmap commitments.
+
+## Platform validation
+
+One shared compiler targets its host OS; there is no cross-OS `--target` flag.
+The repository's native CI matrix covers macOS ARM64, macOS Intel, Linux x64 GNU,
+and Windows x64 MSVC. These targets require their documented host toolchains.
+
+The latest string and debugger changes passed local native checks on macOS
+ARM64, including O0–O3 behavior, debugger sessions and allocation/sanitizer
+checks. Check current CI results before claiming that revision is validated on
+another target. Real LLDB smoke sessions run in macOS/Linux CI; Windows debugger
+sessions and editor/DAP behavior remain pending validation. See [installation](../getting-started/installation.md)
+and [native debugging](../tooling/debugging.md).
 
 ## Documentation versions
 

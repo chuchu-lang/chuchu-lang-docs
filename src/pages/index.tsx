@@ -22,7 +22,7 @@ const learningPaths = [
   },
   {
     number: '02', label: 'THE LANGUAGE', title: 'Find the right words.',
-    description: 'Variables, types, functions, and arrays. Get familiar with the small vocabulary behind your code.',
+    description: 'Variables, strings, functions, and arrays. Get familiar with the small vocabulary behind your code.',
     href: '/docs/language/variables', action: 'Explore the reference', icon: '{ }', tone: 'yellow',
   },
   {
@@ -34,7 +34,7 @@ const learningPaths = [
 
 const topics = [
   {label: 'Variables & types', description: 'A little less ceremony.', href: '/docs/language/types', symbol: 'Aa'},
-  {label: 'Functions', description: 'Small pieces. Clear contracts.', href: '/docs/language/functions', symbol: 'ƒ'},
+  {label: 'Strings & text', description: 'Say it in UTF-8.', href: '/docs/language/strings', symbol: '" "'},
   {label: 'Arrays & built-ins', description: 'Make your numbers work.', href: '/docs/language/arrays', symbol: '[ ]'},
   {label: 'Errors & diagnostics', description: 'Find your way back to working.', href: '/docs/guides/errors', symbol: '!'},
 ];
@@ -49,7 +49,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Simple syntax. Your native journey starts here."
-      description="The Chuchu documentation. Install the Cheeku compiler, write your first native program, and explore readable syntax, inferred types, functions, arrays, and LLVM optimization."
+      description="The Chuchu documentation. Install the Cheeku compiler, write your first native program, and explore readable syntax, inferred types, functions, strings, arrays, debugging, and LLVM optimization."
       wrapperClassName="chuchu-docs-home">
       <main className={styles.home}>
         <div className={styles.ambient} aria-hidden="true">
@@ -126,7 +126,7 @@ export default function Home(): ReactNode {
         <div className={`${styles.container} ${styles.essentials}`} aria-label="Language essentials">
           <span>SMALL LANGUAGE. REAL BUILDING BLOCKS.</span>
           <ul>
-            {['Inferred types', 'Functions', 'Numeric arrays', 'Runtime checks', 'O0–O3'].map((label) => (
+            {['Inferred types', 'UTF-8 strings', 'Functions', 'Numeric arrays', 'O0–O3'].map((label) => (
               <li key={label}><i aria-hidden="true" />{label}</li>
             ))}
           </ul>
