@@ -37,7 +37,7 @@ show greeting_number
 - **Interested in the compiler?** Read about [architecture](project/architecture.md) and [optimization](tooling/optimization.md).
 
 :::info Early development
-These docs describe the current 0.1 codebase. Chuchu is evolving, and syntax and APIs may change. The compiler targets macOS, Linux x64 GNU and Windows x64 MSVC. The latest string and debugger changes have been validated locally on macOS Apple Silicon; check current CI results for the other targets. See [language status](project/status.md) for supported features and limits.
+These docs describe the current 0.1 codebase. Chuchu is evolving, and syntax and APIs may change. The compiler targets macOS, Linux x64 GNU and Windows x64 MSVC. The latest input, result, string, and debugger changes have been validated locally on macOS Apple Silicon; check current CI results for the other targets. See [language status](project/status.md) for supported features and limits.
 :::
 
 ## Chuchu and Cheeku

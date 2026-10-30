@@ -44,6 +44,13 @@ length and cleanup. Each string expression owns its allocation. Parameters take
 ownership; returned values survive local cleanup. Reassignment and scope exit
 release previous values, including on early returns.
 
+`results.rs` lowers scalar results to LLVM structs containing an `i32` status and
+a payload. String result copies and cleanup follow string ownership rules.
+`src/runtime.rs` generates the status definitions for the embedded C11 helpers in
+`src/runtime/io.c`. Native linking compiles those helpers only when referenced.
+Low-level object users must explicitly link `runtime::c_source()`; high-level
+compilation APIs include the runtime automatically.
+
 `debug.rs` attaches compile units, source locations, lexical blocks, type metadata
 and variable storage declarations. Target data is available before creating
 layout-dependent debug types. The DI builder is finalized before verification.

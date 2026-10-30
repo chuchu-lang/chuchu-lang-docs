@@ -46,7 +46,7 @@ renderer. Filesystem, linker, and internal backend errors may use plain messages
 | Invalid source character | A comment marker or unsupported symbol | Use the current language syntax. |
 | Unterminated string | An opening double quote without a closing quote | Close the quote on the same source line. |
 | Invalid escape | `"bad\q"` | Use one of the supported [string escapes](../language/strings.md#escapes). |
-| Mixed string operands | `"count: " + 3` | Combine two strings; automatic numeric conversion is not supported. |
+| Mixed string operands | `"count: " + 3` | Use `"count: " + to_string(3)`; conversion is explicit. |
 | Statement separator | `show 1 show 2` | Place each statement on its own line. |
 
 These examples illustrate invalid code; they are not runnable programs.
@@ -68,8 +68,17 @@ This compiles, but running it reports division by zero. Other checked failures i
 - Negative or out-of-range array indices.
 - Overflow during integer array arithmetic or reduction.
 - String allocation or concatenation size failures.
+- Unwrapping a failed result or constructing an error with an invalid status.
 
 Checks remain active at O0, O1, O2, and O3.
+
+## Recoverable errors
+
+`read_line`, `parse_int`, and `parse_float` return results instead of terminating
+on invalid input. Inspect `is_ok`, distinguish EOF with `is_eof`, and use
+`error_message` to explain a failure. Your program chooses whether to retry or
+stop. Check success before `unwrap`; unwrapping an error still exits with a
+runtime diagnostic. See [input and results](../language/input-results.md).
 
 ## Build and linker errors
 

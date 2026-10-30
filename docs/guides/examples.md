@@ -24,6 +24,28 @@ show len(name)
 Output: `Hello, دنیا 🌍!`, then `6`. `len` counts Unicode scalar values,
 including the space and emoji. See [strings](../language/strings.md).
 
+## Interactive input
+
+```chuchu
+show "Enter an integer:"
+assign line read_line()
+if is_ok(line) {
+    assign parsed parse_int(unwrap(line))
+    if is_ok(parsed) {
+        show "Double: " + to_string(unwrap(parsed) * 2)
+    } else {
+        show error_message(parsed)
+    }
+} else {
+    show error_message(line)
+}
+```
+
+Entering `21` prints `Double: 42`. Invalid numbers produce an error message;
+EOF is reported separately. For retries and custom errors, run the
+[temperature converter](https://github.com/chuchu-lang/chuchu-core/blob/main/examples/temperature.chuchu)
+and read [input and results](../language/input-results.md).
+
 ## Circle area
 
 ```chuchu

@@ -13,7 +13,7 @@ function add(x: int, y: int) -> int {
 show add(10, 20)
 ```
 
-The output is `30`. Every parameter requires a type annotation, and every function declares its return type after `->`. Supported annotations are `int`, `float`, `bool`, and `string`.
+The output is `30`. Every parameter requires a type annotation, and every function declares its return type after `->`. Supported annotations are `int`, `float`, `bool`, `string`, and [scalar result types](input-results.md) such as `result<int>`.
 
 Calls require the declared number of arguments. A float parameter accepts an integer argument through numeric widening. There are no default parameters, overloads, or variadic user functions.
 
@@ -77,6 +77,8 @@ Arrays can be local variables inside functions, but array parameter and return a
 
 Duplicate function names are rejected. Built-in and runtime names are reserved for function declarations:
 
-`abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
+`read_line`, `parse_int`, `parse_float`, `to_string`, `ok`, `is_ok`, `is_eof`, `error_code`, `error_message`, `unwrap`, `abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
+
+`err` is a reserved keyword for explicit typed error construction.
 
 Functions are called by name; first-class function values and closures are not implemented.

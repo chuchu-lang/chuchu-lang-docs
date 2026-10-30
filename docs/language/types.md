@@ -11,6 +11,7 @@ Chuchu checks types before generating LLVM code. Variables infer their types; fu
 | `float` | `1.0`, `3.14159`, `2e-3` | 64-bit floating point |
 | `bool` | `true`, `false` | Boolean |
 | `string` | `"hello"`, `"世界 🌍"` | Owned UTF-8 text |
+| `result<T>` | `ok(42)`, `err<int>(8)` | Status plus scalar payload |
 | Numeric array | `[1, 2]`, `[1.5, 2.5]` | Fixed-size value containing 1–256 elements |
 
 ## Integers
@@ -54,6 +55,13 @@ Array type identity includes element type and length. `[1, 2]` and `[1, 2, 3]` h
 
 Empty arrays, boolean arrays, string arrays, nested arrays, and arrays above 256 elements are unsupported. Array annotations in function signatures are also unsupported. See [arrays](arrays.md).
 
+## Results
+
+`result<int>`, `result<float>`, `result<bool>`, and `result<string>` are accepted
+in function signatures and inferred for variables. Payload types must match
+exactly; results do not implicitly wrap or widen scalar values. Nested results
+and array payloads are unsupported. See [input and results](input-results.md).
+
 ## Output formatting
 
 `show` prints one scalar or string followed by a newline:
@@ -63,6 +71,6 @@ Empty arrays, boolean arrays, string arrays, nested arrays, and arrays above 256
 - Booleans print `true` or `false`.
 - Strings print their text without surrounding quotes. Percent signs are literal text.
 
-Strings are immutable values; see [strings](strings.md) for escapes, Unicode length, equality, and ownership. There is no implicit conversion between strings and numbers or booleans.
+Strings are immutable values; see [strings](strings.md) for escapes, Unicode length, equality, and ownership. Use `to_string`, `parse_int`, and `parse_float` for [explicit conversions](input-results.md#explicit-conversions). There is no implicit conversion between strings and numbers or booleans.
 
 Character literals, null values, objects, and user-defined types are not currently implemented.

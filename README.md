@@ -1,6 +1,6 @@
 # Chuchu documentation
 
-Docusaurus 3 + TypeScript documentation for the [Chuchu language](https://github.com/chuchu-lang/chuchu-core). Includes a custom responsive homepage, 20 documentation pages, Chuchu syntax highlighting, and local full-text search.
+Docusaurus 3 + TypeScript documentation for the [Chuchu language](https://github.com/chuchu-lang/chuchu-core). Includes a custom responsive homepage, 21 documentation pages, Chuchu syntax highlighting, and local full-text search.
 
 ## Development
 
