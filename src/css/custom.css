@@ -60,3 +60,19 @@ body:has(.chuchu-docs-home) .navbar.navbar-sidebar--show {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+
+/* Comment annotations override the Prism theme in both color schemes. */
+.token.comment-todo { color: #92400e !important; }
+[data-theme='dark'] .token.comment-todo { color: #fbbf24 !important; }
+.token.comment-note { color: #1d4ed8 !important; }
+[data-theme='dark'] .token.comment-note { color: #93c5fd !important; }
+.token.comment-critical { color: #b91c1c !important; }
+[data-theme='dark'] .token.comment-critical { color: #fca5a5 !important; }
+.token.comment-fixme { color: #c2410c !important; }
+[data-theme='dark'] .token.comment-fixme { color: #fdba74 !important; }
+.token.comment-warning { color: #854d0e !important; }
+[data-theme='dark'] .token.comment-warning { color: #fde047 !important; }
+.token.comment-hack { color: #7e22ce !important; }
+[data-theme='dark'] .token.comment-hack { color: #d8b4fe !important; }
+.token.comment-done { color: #166534 !important; }
+[data-theme='dark'] .token.comment-done { color: #86efac !important; }

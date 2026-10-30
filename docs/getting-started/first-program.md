@@ -1,6 +1,6 @@
 ---
 title: "Your first program"
-description: "Write, compile, and run a Chuchu program using variables, functions, arrays, and show."
+description: "Write, compile, and run a Chuchu program using variables, input, functions, arrays, and show."
 ---
 
 Create a file named `hello.chuchu`:
@@ -54,12 +54,29 @@ This prints `Hello, world 🌍!`, then `7`. Strings support escapes, concatenati
 content equality and typed function parameters. See [strings](../language/strings.md)
 for Unicode length rules.
 
+## Read input
+
+`input()` returns the text you enter as a string. Pass a prompt to display it
+on the same line:
+
+```chuchu
+assign name as input("Your name: ")
+show "Hello, " + name + "!"
+```
+
+Entering `دنیا 🌍` prints `Hello, دنیا 🌍!`. You can use the value directly in
+`show`, string expressions, or function calls.
+
+`input` stops with a runtime diagnostic on EOF or read failure. Use
+[`try_input()`](../language/input-results.md#handle-input-failures-explicitly)
+when you need to handle those outcomes yourself.
+
 ## Write a function
 
 Function parameters and return values have explicit types:
 
 ```chuchu
-function square(x: int) -> int {
+function square(x: int) be int {
     return x * x
 }
 

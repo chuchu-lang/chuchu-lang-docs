@@ -59,7 +59,7 @@ Names start with an ASCII letter or underscore and continue with ASCII letters, 
 
 Examples: `total`, `total_1`, `_value`, `squarePlus`.
 
-The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `reassign`, and `return`. Function names have [additional restrictions](functions.md#function-names).
+The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `be`, `reassign`, and `return`. Function names have [additional restrictions](functions.md#function-names).
 
 ## Whitespace and statements
 
@@ -69,4 +69,4 @@ Separate statements with newlines. Braces delimit blocks; indentation is for rea
 if true { show 42 }
 ```
 
-Semicolons and comments are not currently supported. Do not include `//` or `#` comment lines in `.chuchu` source files.
+Semicolons are not supported. Use `//` for line comments and `/* ... */` for block comments. See [comments](comments.md) for syntax and colored annotations.

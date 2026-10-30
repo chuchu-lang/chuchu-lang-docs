@@ -1,6 +1,6 @@
 ---
 title: "Examples"
-description: "Run complete Chuchu examples for arithmetic, recursion, strings, numerical arrays, and nested loops."
+description: "Run complete Chuchu examples for input, arithmetic, recursion, strings, numerical arrays, and nested loops."
 ---
 
 Each example below is a complete program. Save it to a `.chuchu` file, then compile and run it:
@@ -13,7 +13,7 @@ cheeku example.chuchu -o example
 ## A string greeting
 
 ```chuchu
-function greet(name: string) -> string {
+function greet(name: string) be string {
     return "Hello, " + name + "!"
 }
 assign name as "دنیا 🌍"
@@ -27,24 +27,32 @@ including the space and emoji. See [strings](../language/strings.md).
 ## Interactive input
 
 ```chuchu
-show "Enter an integer:"
-assign line as read_line()
-if is_ok(line) {
-    assign parsed as parse_int(unwrap(line))
-    if is_ok(parsed) {
-        show "Double: " + to_string(unwrap(parsed) * 2)
-    } else {
-        show error_message(parsed)
-    }
+assign name as input("Your name: ")
+show "Hello, " + name + "!"
+```
+
+`input` returns a string directly. Entering `دنیا 🌍` prints `Hello, دنیا 🌍!`.
+The prompt and your input share a line. No result handling is needed for this
+example. EOF or a read failure stops the program with a runtime diagnostic.
+
+## Convert input to a number
+
+```chuchu
+assign parsed as parse_int(input("Enter an integer: "))
+if is_ok(parsed) {
+    show "Double: " + to_string(unwrap(parsed) * 2)
 } else {
-    show error_message(line)
+    show error_message(parsed)
 }
 ```
 
-Entering `21` prints `Double: 42`. Invalid numbers produce an error message;
-EOF is reported separately. For retries and custom errors, run the
+Entering `21` prints `Double: 42`. Input is text, so numeric conversion remains
+explicit. Here `is_ok` and `unwrap` handle the result from `parse_int`.
+
+For recoverable reads, EOF handling, retries, and custom errors, use
+`try_input()` as shown in the
 [temperature converter](https://github.com/chuchu-lang/chuchu-core/blob/main/examples/temperature.chuchu)
-and read [input and results](../language/input-results.md).
+and [input reference](../language/input-results.md#handle-input-failures-explicitly).
 
 ## Circle area
 
@@ -60,7 +68,7 @@ Output: `78.53975`.
 ## Factorial
 
 ```chuchu
-function factorial(n: int) -> int {
+function factorial(n: int) be int {
     if n <= 1 {
         return 1
     } else {
@@ -85,7 +93,7 @@ Output: `32`. Multiplication creates an element-wise product; reduction sums it.
 ## A typed function with widening
 
 ```chuchu
-function half(x: float) -> float {
+function half(x: float) be float {
     return x / 2.0
 }
 show half(9)

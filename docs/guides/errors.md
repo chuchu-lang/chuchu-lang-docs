@@ -43,7 +43,8 @@ renderer. Filesystem, linker, and internal backend errors may use plain messages
 | Type mismatch | Reassigning `2.5` to an integer variable | Preserve the declared type. |
 | Invalid array | `[1, 2.0]` | Use homogeneous integer or float elements. |
 | Missing return | A function without a value on all required paths | Return from both branches or add a fallback return. |
-| Invalid source character | A comment marker or unsupported symbol | Use the current language syntax. |
+| Unterminated block comment | A `/*` comment has no closing `*/` | Add `*/` to close the comment. |
+| Invalid source character | An unsupported symbol such as `#` | Use the current language syntax. |
 | Unterminated string | An opening double quote without a closing quote | Close the quote on the same source line. |
 | Invalid escape | `"bad\q"` | Use one of the supported [string escapes](../language/strings.md#escapes). |
 | Mixed string operands | `"count: " + 3` | Use `"count: " + to_string(3)`; conversion is explicit. |
@@ -68,13 +69,14 @@ This compiles, but running it reports division by zero. Other checked failures i
 - Negative or out-of-range array indices.
 - Overflow during integer array arithmetic or reduction.
 - String allocation or concatenation size failures.
+- EOF or a read failure in `input()`; use `try_input()` for recovery.
 - Unwrapping a failed result or constructing an error with an invalid status.
 
 Checks remain active at O0, O1, O2, and O3.
 
 ## Recoverable errors
 
-`read_line`, `parse_int`, and `parse_float` return results instead of terminating
+`try_input`, `parse_int`, and `parse_float` return results instead of terminating
 on invalid input. Inspect `is_ok`, distinguish EOF with `is_eof`, and use
 `error_message` to explain a failure. Your program chooses whether to retry or
 stop. Check success before `unwrap`; unwrapping an error still exits with a

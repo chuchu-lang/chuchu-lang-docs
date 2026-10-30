@@ -3,13 +3,25 @@ title: "Input, conversions & results"
 description: "Read UTF-8 lines, convert numbers explicitly, and recover from errors with typed Chuchu results."
 ---
 
-`read_line()` reads one line from standard input and returns `result<string>`.
-`parse_int(text)` and `parse_float(text)` return `result<int>` and `result<float>`.
-Failures are values: the program chooses whether to retry, report an error, or stop.
+`input()` reads a line from standard input and returns a `string` directly.
+An optional prompt is printed and flushed without adding a newline:
 
 ```chuchu
-show "What is your name?"
-assign line as read_line()
+assign name as input("What is your name? ")
+show "Hello, " + name + "!"
+```
+
+No `is_ok` or `unwrap` is needed. `input()` reports a runtime error and exits
+with status 1 on EOF or a read failure. An empty input line succeeds with `""`.
+Input remains text; use `parse_int` or `parse_float` for numeric conversion.
+
+## Handle input failures explicitly
+
+Use `try_input()` or `try_input(prompt)` when the program should recover from
+EOF or errors. These return `result<string>`:
+
+```chuchu
+assign line as try_input("What is your name? ")
 if is_ok(line) {
     show "Hello, " + unwrap(line) + "!"
 } else {
@@ -20,6 +32,14 @@ if is_ok(line) {
     }
 }
 ```
+
+`show` adds a newline. Both input functions accept any string expression as a
+prompt, add no newline of their own, and treat `%` as literal text. Prompt
+write or flush failures are input/output errors (code 4): `input` stops with a
+runtime diagnostic, while `try_input` returns an error result.
+
+`parse_int(text)` and `parse_float(text)` also return results, allowing the
+program to handle invalid numbers explicitly.
 
 ## Result values
 
@@ -45,7 +65,7 @@ There is no `try` propagation operator or general user-defined enum system yet.
 `err` is a reserved keyword; the built-in function names cannot be redeclared.
 
 ```chuchu
-function positive(text: string) -> result<int> {
+function positive(text: string) be result<int> {
     assign parsed as parse_int(text)
     if is_ok(parsed) {
         assign value as unwrap(parsed)
@@ -66,7 +86,7 @@ if is_ok(value) { show unwrap(value) }
 | 1 | End of input | No bytes remain before another line starts |
 | 2 | Invalid number | Invalid integer or decimal floating syntax |
 | 3 | Value out of range | Numeric overflow/underflow, or input size overflow |
-| 4 | Input/output error | Reading stdin or flushing the prompt failed |
+| 4 | Input/output error | Reading stdin, writing the prompt, or flushing stdout failed |
 | 5 | Input is not valid UTF-8 | Invalid UTF-8, or invalid Windows console UTF-16 |
 | 6 | Input contains a NUL byte | Embedded NUL is unsupported |
 | 7 | Memory allocation failed | The input or parsing helper could not allocate |
@@ -77,10 +97,11 @@ checked runtime failure. Codes 1–7 are reserved for the built-in meanings.
 
 ## Line behavior
 
-`read_line()` flushes stdout before reading, so a preceding `show` prompt is
-visible even through a pipe. It removes LF and the CR immediately preceding LF.
+Both `input` and `try_input` flush stdout before reading, so prompts are visible
+even through a pipe. The prompt argument adds no newline; `show` adds one.
+The input reader removes LF and the CR immediately preceding LF.
 An empty line succeeds with `""`; a final line without a newline also succeeds.
-A subsequent read returns EOF. A trailing CR without LF remains in the string.
+At EOF, `input` stops with a runtime diagnostic; `try_input` returns an EOF result. A trailing CR without LF remains in the string.
 
 Input must be UTF-8 without NUL. Rejected lines, including lines whose buffer
 allocation fails, are consumed through LF or EOF so a retry starts at the next

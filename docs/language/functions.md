@@ -6,14 +6,14 @@ description: "Define typed Chuchu functions, call forward declarations, use recu
 ## Define and call a function
 
 ```chuchu
-function add(x: int, y: int) -> int {
+function add(x: int, y: int) be int {
     return x + y
 }
 
 show add(10, 20)
 ```
 
-The output is `30`. Every parameter requires a type annotation, and every function declares its return type after `->`. Supported annotations are `int`, `float`, `bool`, `string`, and [scalar result types](input-results.md) such as `result<int>`.
+The output is `30`. Every parameter requires a type annotation, and every function declares its return type after the `be` keyword. Supported annotations are `int`, `float`, `bool`, `string`, and [scalar result types](input-results.md) such as `result<int>`.
 
 Calls require the declared number of arguments. A float parameter accepts an integer argument through numeric widening. There are no default parameters, overloads, or variadic user functions.
 
@@ -22,7 +22,7 @@ Function calls are expressions. To observe a result, use it in a declaration, re
 ## String parameters and returns
 
 ```chuchu
-function greet(name: string) -> string {
+function greet(name: string) be string {
     return "Hello, " + name + "!"
 }
 show greet("world")
@@ -38,7 +38,7 @@ Top-level signatures are registered before bodies are checked, so a function can
 ```chuchu
 show factorial(5)
 
-function factorial(n: int) -> int {
+function factorial(n: int) be int {
     if n <= 1 {
         return 1
     } else {
@@ -56,7 +56,7 @@ Every function returns a value. A return expression must match the declared type
 The checker accepts a direct return or an `if` whose two branches both return, including returns later in the body. It does not prove that a loop always runs or that a condition is always true. Include a fallback return after a loop when needed:
 
 ```chuchu
-function first(n: int) -> int {
+function first(n: int) be int {
     while n > 0 {
         return n
     }
@@ -73,11 +73,13 @@ Functions must be declared at the top level. They cannot capture top-level varia
 
 Arrays can be local variables inside functions, but array parameter and return annotations are not currently supported.
 
+The `be` keyword is required: `function name(parameters) be return_type { ... }`.
+
 ## Function names
 
 Duplicate function names are rejected. Built-in and runtime names are reserved for function declarations:
 
-`read_line`, `parse_int`, `parse_float`, `to_string`, `ok`, `is_ok`, `is_eof`, `error_code`, `error_message`, `unwrap`, `abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
+`input`, `try_input`, `parse_int`, `parse_float`, `to_string`, `ok`, `is_ok`, `is_eof`, `error_code`, `error_message`, `unwrap`, `abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
 
 `err` is a reserved keyword for explicit typed error construction.
 

@@ -5,7 +5,7 @@ import CodeBlock from '@theme/CodeBlock';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
-const example = `function square(x: int) -> int {
+const example = `function square(x: int) be int {
     return x * x
 }
 
@@ -162,15 +162,16 @@ export default function Home(): ReactNode {
               <p className={styles.eyebrow}><span aria-hidden="true" />02 · A LITTLE CHUCHU</p>
               <h2 id="quickstart-title">Looks like a thought.<br />Runs like a program.</h2>
               <p>Declare with <code>assign</code>. Update with <code>reassign</code>.
-                Say it with <code>show</code>. The compiler takes care of the types.</p>
+                Read a string with <code>input()</code>. Say it with <code>show</code>.</p>
               <Link className={styles.textLink} to="/docs/getting-started/first-program">
                 Write your first program <Arrow />
               </Link>
             </div>
             <div className={styles.firstProgram}>
               <div className={styles.snippetLabel}><span aria-hidden="true">✳</span> A SMALL VOCABULARY</div>
-              <CodeBlock language="chuchu">{'assign count as 5\nreassign count as count + 1\nshow count'}</CodeBlock>
-              <div className={styles.resultRow}><span>OUTPUT</span><code>6</code><span>One small step. A working program.</span></div>
+              <CodeBlock language="chuchu">{'assign name as input("Your name: ")\nshow "Hello, " + name + "!"'}</CodeBlock>
+              <div className={styles.resultRow}><span>YOU TYPE</span><code>دنیا 🌍</code><span>Input returns a string.</span></div>
+              <div className={styles.resultRow}><span>OUTPUT</span><code>Hello, دنیا 🌍!</code></div>
             </div>
           </div>
         </section>

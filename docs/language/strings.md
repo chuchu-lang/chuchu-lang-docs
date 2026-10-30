@@ -88,7 +88,7 @@ number or boolean.
 Use `string` in parameter and return annotations:
 
 ```chuchu
-function greet(name: string) -> string {
+function greet(name: string) be string {
     assign prefix as "Hello, "
     return prefix + name + "!"
 }

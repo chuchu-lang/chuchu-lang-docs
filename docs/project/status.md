@@ -14,7 +14,8 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 - Top-level typed functions, forward calls, recursion, and mutual recursion.
 - Numerical built-ins: `abs`, `sqrt`, `min`, `max`, `sum`, `len`.
 - Scalar and string output through `show`.
-- UTF-8 standard input, explicit number/string conversions, and recoverable scalar results.
+- UTF-8 input: `input()` returns a string; `try_input()` provides recoverable results.
+- Explicit number/string conversions and recoverable scalar results.
 - String concatenation, content equality, Unicode scalar length, and typed string functions.
 - Source excerpts, line/column diagnostics, carets, and repair guidance.
 - Native debug metadata, LLDB inspection, and `--debug` / `-g` build flags.
@@ -29,7 +30,8 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 | Platforms | macOS ARM64/Intel, Linux x64 GNU, Windows x64 MSVC are native targets; see validation details below |
 | Arrays | 1–256 homogeneous numeric elements; no element assignment |
 | Function signatures | `int`, `float`, `bool`, `string`, and scalar `result<T>`; no array annotations |
-| Text | Strings implemented; no NUL bytes, indexing, interpolation, character literals, or comments |
+| Text | Strings implemented; no NUL bytes, indexing, interpolation, or character literals |
+| Comments | Line comments (`//`) and block comments (`/* ... */`); [colored annotations](../language/comments.md) in the docs |
 | Control flow | No `for`, `break`, `continue`, or logical operators |
 | Modules and data | No imports, user-defined types, dynamic collections, or file I/O API |
 | Runtime | Standard input implemented; no JIT, GPU execution, or automatic parallelism |
