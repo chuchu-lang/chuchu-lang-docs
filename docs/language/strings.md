@@ -6,7 +6,7 @@ description: "Write UTF-8 strings, use escapes and concatenation, compare text, 
 Strings are immutable UTF-8 text values written with double quotes:
 
 ```chuchu
-assign name "world 🌍"
+assign name as "world 🌍"
 show "Hello, " + name + "!"
 ```
 
@@ -40,7 +40,7 @@ including `\0`, and `\u` / `\x` escapes are not supported.
 `+` joins two strings. `==` and `!=` compare contents:
 
 ```chuchu
-assign greeting "Hello, " + "world"
+assign greeting as "Hello, " + "world"
 show greeting + "!"
 show greeting == "Hello, world"
 show greeting != "Goodbye"
@@ -72,9 +72,9 @@ normalized: precomposed `"é"` and combining `"é"` compare as different string
 ## Reassignment and value semantics
 
 ```chuchu
-assign original "hello"
-assign saved original
-reassign original original + "!"
+assign original as "hello"
+assign saved as original
+reassign original as original + "!"
 show saved
 show original
 ```
@@ -89,7 +89,7 @@ Use `string` in parameter and return annotations:
 
 ```chuchu
 function greet(name: string) -> string {
-    assign prefix "Hello, "
+    assign prefix as "Hello, "
     return prefix + name + "!"
 }
 show greet("دنیا 🌍")

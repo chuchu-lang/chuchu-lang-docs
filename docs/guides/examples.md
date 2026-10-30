@@ -16,7 +16,7 @@ cheeku example.chuchu -o example
 function greet(name: string) -> string {
     return "Hello, " + name + "!"
 }
-assign name "دنیا 🌍"
+assign name as "دنیا 🌍"
 show greet(name)
 show len(name)
 ```
@@ -28,9 +28,9 @@ including the space and emoji. See [strings](../language/strings.md).
 
 ```chuchu
 show "Enter an integer:"
-assign line read_line()
+assign line as read_line()
 if is_ok(line) {
-    assign parsed parse_int(unwrap(line))
+    assign parsed as parse_int(unwrap(line))
     if is_ok(parsed) {
         show "Double: " + to_string(unwrap(parsed) * 2)
     } else {
@@ -49,9 +49,9 @@ and read [input and results](../language/input-results.md).
 ## Circle area
 
 ```chuchu
-assign pi 3.14159
-assign radius 5.0
-assign area pi * radius * radius
+assign pi as 3.14159
+assign radius as 5.0
+assign area as pi * radius * radius
 show area
 ```
 
@@ -75,8 +75,8 @@ Output: `120`.
 ## Dot product
 
 ```chuchu
-assign a [1, 2, 3]
-assign b [4, 5, 6]
+assign a as [1, 2, 3]
+assign b as [4, 5, 6]
 show sum(a * b)
 ```
 
@@ -96,15 +96,15 @@ Output: `4.5`. The integer argument widens to float.
 ## Nested iteration
 
 ```chuchu
-assign i 0
-assign total 0
+assign i as 0
+assign total as 0
 while i < 3 {
-    assign j 0
+    assign j as 0
     while j < 2 {
-        reassign total total + i * j
-        reassign j j + 1
+        reassign total as total + i * j
+        reassign j as j + 1
     }
-    reassign i i + 1
+    reassign i as i + 1
 }
 show total
 ```

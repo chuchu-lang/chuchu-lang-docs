@@ -38,7 +38,7 @@ renderer. Filesystem, linker, and internal backend errors may use plain messages
 | Problem | Example | How to fix it |
 |---|---|---|
 | Undefined variable | `show missing` | Declare it first, or pass it as a function argument. |
-| Duplicate declaration | Two `assign x ...` statements in one scope | Use `reassign`, or choose another name. |
+| Duplicate declaration | Two `assign x as ...` statements in one scope | Use `reassign`, or choose another name. |
 | Invalid condition | `if 1 { show 1 }` | Use a boolean comparison such as `1 > 0`. |
 | Type mismatch | Reassigning `2.5` to an integer variable | Preserve the declared type. |
 | Invalid array | `[1, 2.0]` | Use homogeneous integer or float elements. |
@@ -56,7 +56,7 @@ These examples illustrate invalid code; they are not runnable programs.
 A program can compile successfully but fail when executed. Checked failures write a message beginning with `cheeku runtime:` to stderr and exit with status `1`.
 
 ```chuchu
-assign divisor 0
+assign divisor as 0
 show 1 / divisor
 ```
 

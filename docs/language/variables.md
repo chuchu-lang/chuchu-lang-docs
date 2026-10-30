@@ -5,14 +5,14 @@ description: "Declare and reassign Chuchu variables, understand lexical scope, a
 
 ## Declare a variable
 
-Use `assign` for new declarations and `reassign` to change an existing value. Write the expression directly after the name; the older `to` separator is no longer accepted.
+Use `assign` for new declarations and `reassign` to change an existing value. Put `as` between the variable name and its value: `assign name as expression` or `reassign name as expression`. The `as` keyword is required for both statements.
 
-Use `assign name expression`:
+Use `assign name as expression`:
 
 ```chuchu
-assign count 10
-assign ratio 2.5
-assign ready true
+assign count as 10
+assign ratio as 2.5
+assign ready as true
 ```
 
 The initializer determines the variable's type. Local declarations do not use type annotations. A variable must be declared before it is read.
@@ -20,16 +20,16 @@ The initializer determines the variable's type. Local declarations do not use ty
 ## Reassign a value
 
 ```chuchu
-assign count 10
-reassign count count + 5
+assign count as 10
+reassign count as count + 5
 show count
 ```
 
 The output is `15`. Reassignment must preserve the declared type, with one widening conversion: an `int` can be assigned to an existing `float` variable.
 
 ```chuchu
-assign measurement 1.0
-reassign measurement 2
+assign measurement as 1.0
+reassign measurement as 2
 show measurement
 ```
 
@@ -40,11 +40,11 @@ Assigning a float to an integer variable is a type error. Declaring the same nam
 Each `if` branch and `while` body introduces a scope. A block can read and reassign an enclosing variable. A new declaration can shadow its name:
 
 ```chuchu
-assign x 10
+assign x as 10
 if true {
-    assign x x + 20
+    assign x as x + 20
     show x
-    reassign x 40
+    reassign x as 40
 }
 show x
 ```
@@ -59,7 +59,7 @@ Names start with an ASCII letter or underscore and continue with ASCII letters, 
 
 Examples: `total`, `total_1`, `_value`, `squarePlus`.
 
-The lexer reserves `assign`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `reassign`, and `return`. Function names have [additional restrictions](functions.md#function-names).
+The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `reassign`, and `return`. Function names have [additional restrictions](functions.md#function-names).
 
 ## Whitespace and statements
 

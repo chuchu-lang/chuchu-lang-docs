@@ -8,7 +8,7 @@ Chuchu is a small, statically typed programming language built in Rust. Its comp
 The language combines readable statements with inferred local types, explicit function signatures, immutable UTF-8 strings, and checked numerical operations.
 
 ```chuchu
-assign greeting_number 42
+assign greeting_number as 42
 show greeting_number
 ```
 
@@ -20,11 +20,11 @@ show greeting_number
 
 | You want to… | Write… |
 |---|---|
-| Declare a variable | `assign count 0` |
-| Change its value | `reassign count count + 1` |
+| Declare a variable | `assign count as 0` |
+| Change its value | `reassign count as count + 1` |
 | Print a value | `show count` |
 | Make a decision | `if count > 0 { show count }` |
-| Repeat work | `while count < 5 { reassign count count + 1 }` |
+| Repeat work | `while count < 5 { reassign count as count + 1 }` |
 | Define a function | `function double(x: int) -> int { return x * 2 }` |
 
 ## Choose a path

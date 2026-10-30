@@ -11,12 +11,12 @@ frames, parameters, and local variables. LLDB controls the compiled executable.
 Save this complete program as `counter.chuchu`:
 
 ```chuchu
-assign counter 0
-assign message "Counting"
+assign counter as 0
+assign message as "Counting"
 while counter < 3 {
     show message
     show counter
-    reassign counter counter + 1
+    reassign counter as counter + 1
 }
 ```
 
