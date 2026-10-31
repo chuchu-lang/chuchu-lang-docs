@@ -31,6 +31,7 @@ show greeting_number
 ## Choose a path
 
 - **New to Chuchu?** [Install Cheeku](getting-started/installation.md), then [write your first program](getting-started/first-program.md).
+- **Using VS Code?** [Install the Chuchu extension](tooling/vscode.md) for completions, navigation, diagnostics, and builds with your local compiler.
 - **Looking up syntax?** Start with [variables](language/variables.md), [types](language/types.md), or [functions](language/functions.md).
 - **Working with text?** Read the [string guide](language/strings.md) and [read input](language/input-results.md).
 - **Debugging a program?** Use [source diagnostics](guides/errors.md) and [native debugging](tooling/debugging.md).

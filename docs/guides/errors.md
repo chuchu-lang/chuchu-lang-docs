@@ -5,6 +5,10 @@ description: "Understand Chuchu compile-time source diagnostics, runtime overflo
 
 Cheeku reports compile-time errors to stderr and exits unsuccessfully. Successful compilation is normally quiet.
 
+Using the [VS Code extension](../tooling/vscode.md)? Lexical and delimiter
+errors appear as you type. Run **Chuchu: Build Current File** for complete
+compiler syntax and type diagnostics in the Problems panel.
+
 ## Source locations
 
 Source errors show a file path, one-based line and column, a source excerpt,

@@ -139,6 +139,18 @@ filename; include `.exe` yourself for normal Windows execution.
 Try `examples/strings.chuchu` for UTF-8 text, or follow
 [native debugging](../tooling/debugging.md) to build with source symbols.
 
+## Set up VS Code
+
+Install the [Chuchu Language extension](../tooling/vscode.md) for syntax
+highlighting, snippets, completions, navigation, and build commands. It works
+with the compiler you just built: set `chuchu.compilerPath` to your local
+`target/release/cheeku` executable (`cheeku.exe` on Windows). A published
+compiler release is not required.
+
+The [VS Code guide](../tooling/vscode.md#connect-a-locally-built-compiler)
+covers installation from VSIX, workspace-relative compiler paths, and building
+normal or debug programs from the editor.
+
 ## Troubleshooting installation
 
 | Symptom | Check |

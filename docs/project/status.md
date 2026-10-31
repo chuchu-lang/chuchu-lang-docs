@@ -18,6 +18,7 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 - Explicit number/string conversions and recoverable scalar results.
 - String concatenation, content equality, Unicode scalar length, and typed string functions.
 - Source excerpts, line/column diagnostics, carets, and repair guidance.
+- [VS Code language support](../tooling/vscode.md): highlighting, snippets, completions, hover help, navigation, lexical diagnostics, and local compiler build commands.
 - Native debug metadata, LLDB inspection, and `--debug` / `-g` build flags.
 - Native object emission and executable linking.
 - O0–O3 optimization, CPU selection, timing JSON, IR and assembly output.
@@ -35,7 +36,7 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 | Control flow | No `for`, `break`, `continue`, or logical operators |
 | Modules and data | No imports, user-defined types, dynamic collections, or file I/O API |
 | Runtime | Standard input implemented; no JIT, GPU execution, or automatic parallelism |
-| Tooling | Native debugging implemented; no Chuchu expression evaluator, official language server, or browser playground |
+| Tooling | VS Code extension and native debugging implemented; full syntax/type checks run through Cheeku builds; no Chuchu expression evaluator, standalone language server, or browser playground |
 
 These are implementation boundaries, not announced roadmap commitments.
 

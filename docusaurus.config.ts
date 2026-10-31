@@ -46,6 +46,7 @@ const config: Config = {
         {type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: 'Documentation'},
         {to: '/docs/guides/examples', label: 'Examples', position: 'left'},
         {to: '/docs/project/status', label: 'Language status', position: 'left'},
+        {to: '/docs/tooling/vscode', label: 'VS Code', position: 'left'},
         {href: 'https://github.com/chuchu-lang/chuchu-core', label: 'GitHub', position: 'right'},
       ],
     },
@@ -53,7 +54,7 @@ const config: Config = {
       style: 'light',
       links: [
         {title: 'Learn', items: [{label: 'Get started', to: '/docs/getting-started/installation'}, {label: 'Language reference', to: '/docs/language/variables'}, {label: 'Examples', to: '/docs/guides/examples'}]},
-        {title: 'Build', items: [{label: 'Compiler CLI', to: '/docs/tooling/cli'}, {label: 'Optimization', to: '/docs/tooling/optimization'}, {label: 'Compiler architecture', to: '/docs/project/architecture'}]},
+        {title: 'Build', items: [{label: 'VS Code extension', to: '/docs/tooling/vscode'}, {label: 'Compiler CLI', to: '/docs/tooling/cli'}, {label: 'Optimization', to: '/docs/tooling/optimization'}, {label: 'Compiler architecture', to: '/docs/project/architecture'}]},
         {title: 'Project', items: [{label: 'Source code', href: 'https://github.com/chuchu-lang/chuchu-core'}, {label: 'Contribute', to: '/docs/project/contributing'}, {label: 'Documentation source', href: 'https://github.com/chuchu-lang/chuchu-lang-docs'}]},
       ],
       copyright: `© ${new Date().getFullYear()} Chuchu. Compiler released under the MIT License.`,

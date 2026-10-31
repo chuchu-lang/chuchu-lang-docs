@@ -3,6 +3,8 @@ title: "Your first program"
 description: "Write, compile, and run a Chuchu program using variables, input, functions, arrays, and show."
 ---
 
+Using VS Code? [Set up the Chuchu extension](../tooling/vscode.md) for highlighting, completions, and build commands with your locally built compiler.
+
 Create a file named `hello.chuchu`:
 
 ```chuchu title="hello.chuchu"

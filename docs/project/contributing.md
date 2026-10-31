@@ -1,11 +1,12 @@
 ---
 title: "Contributing"
-description: "Contribute to the Chuchu compiler or documentation, run validation, and write implementation-backed examples."
+description: "Contribute to the Chuchu compiler, VS Code extension, or documentation, run validation, and write implementation-backed examples."
 ---
 
 Chuchu is open source. Contributions can improve language behavior, diagnostics, examples, or documentation.
 
 - [Compiler repository](https://github.com/chuchu-lang/chuchu-core)
+- [VS Code extension repository](https://github.com/chuchu-lang/chuchu-vscode)
 - [Documentation repository](https://github.com/chuchu-lang/chuchu-lang-docs)
 
 ## Work on the compiler
@@ -45,6 +46,27 @@ python3 -m unittest discover -s benchmarks -p test_runner.py
 ```
 
 Performance experiments belong in separate benchmark runs, outside ordinary correctness checks.
+
+## Work on the VS Code extension
+
+Use Node.js 22 or newer:
+
+```bash
+git clone https://github.com/chuchu-lang/chuchu-vscode.git
+cd chuchu-vscode
+npm ci
+npm test
+npm run test:integration
+npm run package
+```
+
+Open the repository in VS Code and press **F5** to launch an Extension
+Development Host. The package command creates `chuchu-vscode.vsix` for local
+installation. See the [VS Code guide](../tooling/vscode.md) for compiler setup
+and the extension repository's README for optional end-to-end Cheeku tests.
+Keep highlighting, completions, snippets, and navigation aligned with the
+implemented language; the extension does not duplicate the complete compiler
+type checker.
 
 ## Work on the documentation
 

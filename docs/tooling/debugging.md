@@ -98,6 +98,15 @@ should use the canonical source path, especially for macOS `/var` aliases.
 
 ## Editor integration
 
+The [Chuchu VS Code extension](vscode.md) provides editing features and
+**Chuchu: Build Current File for Debugging**. It uses your local Cheeku
+compiler with `--debug`; a separate debugger extension controls the resulting
+executable. For `counter.chuchu` in the workspace root, the extension writes
+`.chuchu/build/counter-debug` (`counter-debug.exe` on Windows). When using that
+build command, change `program` in the configuration below to
+`${workspaceFolder}/.chuchu/build/counter-debug`, and its Windows override to
+`${workspaceFolder}/.chuchu/build/counter-debug.exe`.
+
 Use an editor that supports `lldb-dap`. With the official
 [LLDB DAP extension](https://lldb.llvm.org/use/lldbdap.html) in VS Code, build
 `counter` first and add this launch configuration:

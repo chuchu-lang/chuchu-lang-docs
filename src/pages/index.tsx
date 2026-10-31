@@ -49,7 +49,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Simple syntax. Your native journey starts here."
-      description="The Chuchu documentation. Install the Cheeku compiler, write your first native program, and explore readable syntax, inferred types, functions, strings, arrays, debugging, and LLVM optimization."
+      description="The Chuchu documentation. Install the Cheeku compiler, write your first native program, and explore readable syntax, inferred types, functions, strings, arrays, debugging, VS Code support, and LLVM optimization."
       wrapperClassName="chuchu-docs-home">
       <main className={styles.home}>
         <div className={styles.ambient} aria-hidden="true">
@@ -92,7 +92,7 @@ export default function Home(): ReactNode {
             <div className={styles.heroNote}>
               <span>Built in Rust</span><i aria-hidden="true" />
               <span>Powered by LLVM</span><i aria-hidden="true" />
-              <span>Open source</span>
+              <Link className={styles.textLink} to="/docs/tooling/vscode">VS Code extension <Arrow /></Link>
             </div>
           </div>
 

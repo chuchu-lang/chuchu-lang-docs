@@ -23,6 +23,8 @@ The input must have a `.chuchu` extension. Options follow the source path; outpu
 | `--no-vectorize` | Off | Disable loop/SLP vectorizer and interleaving options |
 | `--help`, `-h` | — | Print usage when passed alone |
 
+Prefer building from your editor? The [VS Code extension](vscode.md#build-the-current-file) runs Cheeku for the current file and reports compiler errors in the Problems panel.
+
 ## Compile and run
 
 ```bash
