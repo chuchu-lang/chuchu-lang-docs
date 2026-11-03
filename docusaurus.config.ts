@@ -47,6 +47,7 @@ const config: Config = {
         {to: '/docs/guides/examples', label: 'Examples', position: 'left'},
         {to: '/docs/project/status', label: 'Language status', position: 'left'},
         {to: '/docs/tooling/vscode', label: 'VS Code', position: 'left'},
+        {href: 'https://www.chuchu-lang.org/', label: 'Website', position: 'right'},
         {href: 'https://github.com/chuchu-lang/chuchu-core', label: 'GitHub', position: 'right'},
       ],
     },
