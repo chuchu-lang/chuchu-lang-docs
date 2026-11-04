@@ -55,18 +55,18 @@ implemented.
 
 ## Unicode length
 
-`len(string)` returns the number of **Unicode scalar values**:
+`length(string)` returns the number of **Unicode scalar values**:
 
 ```chuchu
-show len("")
-show len("hello")
-show len("é中🌍")
-show len("é")
+show length("")
+show length("hello")
+show length("é中🌍")
+show length("é")
 ```
 
 Output: `0`, `5`, `3`, `2`. The last example contains `e` followed by a combining
 accent. A combining mark counts separately, even when the result looks like one
-character. `len` does not count bytes or grapheme clusters. Text is not
+character. `length` does not count bytes or grapheme clusters. Text is not
 normalized: precomposed `"é"` and combining `"é"` compare as different strings.
 
 ## Reassignment and value semantics

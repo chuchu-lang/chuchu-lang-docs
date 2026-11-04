@@ -1,6 +1,6 @@
 ---
 title: "Types & literals"
-description: "Understand Chuchu integer, floating-point, boolean, string, and fixed-size array types and numeric conversion rules."
+description: "Understand Chuchu integer, floating-point, boolean, string, record, result, and fixed-size array types and numeric conversion rules."
 ---
 
 Chuchu checks types before generating LLVM code. Variables infer their types; function signatures use lowercase `int`, `float`, `bool`, and `string` annotations.
@@ -11,7 +11,8 @@ Chuchu checks types before generating LLVM code. Variables infer their types; fu
 | `float` | `1.0`, `3.14159`, `2e-3` | 64-bit floating point |
 | `bool` | `true`, `false` | Boolean |
 | `string` | `"hello"`, `"世界 🌍"` | Owned UTF-8 text |
-| `result<T>` | `ok(42)`, `err<int>(8)` | Status plus scalar payload |
+| `result<T>` | `ok(42)`, `err<int>(8)` | Status plus scalar or string payload |
+| Record | `Point { x: 1 }` | Named value containing typed fields |
 | Numeric array | `[1, 2]`, `[1.5, 2.5]` | Fixed-size value containing 1–256 elements |
 
 ## Integers
@@ -60,7 +61,7 @@ Empty arrays, boolean arrays, string arrays, nested arrays, and arrays above 256
 `result<int>`, `result<float>`, `result<bool>`, and `result<string>` are accepted
 in function signatures and inferred for variables. Payload types must match
 exactly; results do not implicitly wrap or widen scalar values. Nested results
-and array payloads are unsupported. See [input and results](input-results.md).
+and record or array payloads are unsupported. See [input and results](input-results.md).
 
 ## Output formatting
 
@@ -73,4 +74,12 @@ and array payloads are unsupported. See [input and results](input-results.md).
 
 Strings are immutable values; see [strings](strings.md) for escapes, Unicode length, equality, and ownership. Use `to_string`, `parse_int`, and `parse_float` for [explicit conversions](input-results.md#explicit-conversions). There is no implicit conversion between strings and numbers or booleans.
 
-Character literals, null values, objects, and user-defined types are not currently implemented.
+## Records
+
+[Records](records.md) are user-defined value types with named fields. They can
+contain integers, floats, booleans, strings, and other records, and can appear
+in function signatures. Copies are independent, including nested strings.
+Imported records use qualified names such as `math.Point`; types declared in
+different modules remain distinct even if their fields match.
+
+Character literals, null values, classes, and inheritance are not implemented.

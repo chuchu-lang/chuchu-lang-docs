@@ -18,10 +18,10 @@ function greet(name: string) be string {
 }
 assign name as "دنیا 🌍"
 show greet(name)
-show len(name)
+show length(name)
 ```
 
-Output: `Hello, دنیا 🌍!`, then `6`. `len` counts Unicode scalar values,
+Output: `Hello, دنیا 🌍!`, then `6`. `length` counts Unicode scalar values,
 including the space and emoji. See [strings](../language/strings.md).
 
 ## Interactive input
@@ -121,6 +121,8 @@ Output: `3`.
 
 ## More examples in the repository
 
-The [compiler examples directory](https://github.com/chuchu-lang/chuchu-core/tree/main/examples) contains strings, arithmetic, conditions, loops, functions, floats, arrays, and a syntax smoke test. The [benchmark sources](https://github.com/chuchu-lang/chuchu-core/tree/main/benchmarks/chuchu) exercise longer numerical workloads.
+The [compiler examples directory](https://github.com/chuchu-lang/chuchu-core/tree/main/examples) contains strings, arithmetic, conditions, loops, functions, floats, arrays,
+[records](../language/records.md), [files](../language/files.md), a
+[multi-file module example](../language/modules.md), and a syntax smoke test. The [benchmark sources](https://github.com/chuchu-lang/chuchu-core/tree/main/benchmarks/chuchu) exercise longer numerical workloads.
 
 For a complete list of supported constructs, see [language status](../project/status.md).

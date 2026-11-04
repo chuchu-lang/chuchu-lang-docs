@@ -11,7 +11,9 @@ Cheeku is the CLI binary of the Rust package `chuchu`. The compiler library expo
 Tokens with byte spans
     ↓ parser
 Abstract syntax tree
-    ↓ type checker + symbol table
+    ↓ module discovery + name resolution
+Resolved module graph
+    ↓ record validation + type checker + symbol table
 Validated program
     ↓ typed code generation
 LLVM module
@@ -27,11 +29,18 @@ Executable
 |---|---|
 | `token.rs`, `lexer.rs` | Keywords, literals, symbols, newline tokens, and byte spans |
 | `ast.rs`, `parser.rs` | Statements, precedence-based expressions, blocks, calls, and indexing |
+| `modules.rs` | Relative file discovery, import cycles, visibility, qualified names, and source bundling |
+| `records.rs` | Record definitions, field types, and recursive layout validation |
 | `types.rs`, `symbol_table.rs` | Type identity and lexical name lookup |
 | `type_checker.rs` | Inference, signatures, string/array operators, conditions, scope, and return validation |
 | `source.rs`, `diagnostic.rs` | Source identity/positions and human-facing errors with excerpts and guidance |
 
 Function signatures are collected before bodies are checked. Function bodies use isolated symbol environments, so they do not capture top-level variables.
+
+File-based APIs discover and resolve all reachable modules before typed lowering.
+Each canonical file is loaded once. Imported files contain declarations only;
+functions and records require `export` to be visible to an importer. Diagnostics
+retain the originating file and import context.
 
 ## Typed code generation
 
@@ -47,9 +56,12 @@ release previous values, including on early returns.
 `results.rs` lowers scalar results to LLVM structs containing an `i32` status and
 a payload. String result copies and cleanup follow string ownership rules.
 `src/runtime.rs` generates the status definitions for the embedded C11 helpers in
-`src/runtime/io.c`. Native linking compiles those helpers only when referenced.
+`src/runtime/io.c` and `src/runtime/file.c`. Native linking compiles those helpers only when referenced.
 Low-level object users must explicitly link `runtime::c_source()`; high-level
 compilation APIs include the runtime automatically.
+
+`codegen/records.rs` and `codegen/program/record_values.rs` lower record layouts,
+field access, and deep copies/cleanup of nested string fields.
 
 `debug.rs` attaches compile units, source locations, lexical blocks, type metadata
 and variable storage declarations. Target data is available before creating
@@ -73,9 +85,11 @@ to restore previous symbols if replacing the executable fails.
 
 - `compile_source` / `compile_file`: default build policy.
 - `compile_source_with_options` / `compile_file_with_options`: explicit `BuildOptions` and returned timings.
-- `compile_named_source_with_options`: named-source input whose contents match a stable source file; required for string-input debug compilation.
+- `compile_named_source_with_options`: named-source input whose contents match a stable source file; required for string-input debug compilation and supports imports resolved from that file.
 - `generate_program_with_options`: production lowering with optional source metadata.
 - `generate_program`: LLVM generation from a semantically validated AST.
 - Native emission APIs: lower-level, caller-managed artifact paths.
 
-Refer to the [Rust source](https://github.com/chuchu-lang/chuchu-core/tree/main/src) for exact signatures. Anonymous source-string compilation cannot provide a debugger-visible source file and rejects full debug builds. The Rust API evolves alongside the language.
+Refer to the [Rust source](https://github.com/chuchu-lang/chuchu-core/tree/main/src) for exact signatures. Anonymous source-string compilation cannot provide a debugger-visible source file and rejects full debug builds. Anonymous source-string APIs also reject relative imports because they have no
+base directory; use a file-based or named-source API instead. The Rust API
+evolves alongside the language.

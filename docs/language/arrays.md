@@ -56,18 +56,18 @@ Output: `32`, `21`. Integer operations are checked element by element.
 
 ## Length and reduction
 
-`len(array)` returns its length as an integer. `sum(array)` adds elements in order and returns the scalar element type.
+`length(array)` returns its length as an integer. `sum(array)` adds elements in order and returns the scalar element type.
 
 ```chuchu
 assign values as [1.5, 2.5, 3.5]
-show len(values)
+show length(values)
 show sum(values)
 ```
 
 Output: `3`, `7.5`.
 
 :::note Printing arrays
-`show` accepts scalars and strings, so `show values` is a type error. Print an indexed element, `len(values)`, or `sum(values)` instead.
+`show` accepts scalars and strings, so `show values` is a type error. Print an indexed element, `length(values)`, or `sum(values)` instead.
 :::
 
 ## Current limits

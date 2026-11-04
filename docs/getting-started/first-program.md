@@ -49,7 +49,7 @@ This prints `0`, `1`, and `2` on separate lines.
 ```chuchu
 assign name as "world 🌍"
 show "Hello, " + name + "!"
-show len(name)
+show length(name)
 ```
 
 This prints `Hello, world 🌍!`, then `7`. Strings support escapes, concatenation,

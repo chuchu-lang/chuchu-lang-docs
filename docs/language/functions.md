@@ -13,7 +13,7 @@ function add(x: int, y: int) be int {
 show add(10, 20)
 ```
 
-The output is `30`. Every parameter requires a type annotation, and every function declares its return type after the `be` keyword. Supported annotations are `int`, `float`, `bool`, `string`, and [scalar result types](input-results.md) such as `result<int>`.
+The output is `30`. Every parameter requires a type annotation, and every function declares its return type after the `be` keyword. Supported annotations are `int`, `float`, `bool`, `string`, [result types](input-results.md) such as `result<int>`, and [record types](records.md), including imported types such as `math.Point`.
 
 Calls require the declared number of arguments. A float parameter accepts an integer argument through numeric widening. There are no default parameters, overloads, or variadic user functions.
 
@@ -79,8 +79,13 @@ The `be` keyword is required: `function name(parameters) be return_type { ... }`
 
 Duplicate function names are rejected. Built-in and runtime names are reserved for function declarations:
 
-`input`, `try_input`, `parse_int`, `parse_float`, `to_string`, `ok`, `is_ok`, `is_eof`, `error_code`, `error_message`, `unwrap`, `abs`, `sqrt`, `min`, `max`, `sum`, `len`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
+`input`, `try_input`, `read_file`, `try_read_file`, `write_file`, `try_write_file`, `parse_int`, `parse_float`, `to_string`, `ok`, `is_ok`, `is_eof`, `error_code`, `error_message`, `unwrap`, `abs`, `sqrt`, `min`, `max`, `sum`, `length`, `main`, `printf`, `write`, `exit`, `fmin`, `fmax`, `fabs`, `malloc`, `free`, `strlen`, `memcpy`, and `strcmp`.
 
-`err` is a reserved keyword for explicit typed error construction.
+Internal native runtime helper names are reserved too. `err` is a reserved
+keyword for explicit typed error construction.
+
+Functions are private to their file unless declared with `export function`.
+Import them with `use module name` and call `name.function(...)`; see
+[modules and imports](modules.md).
 
 Functions are called by name; first-class function values and closures are not implemented.

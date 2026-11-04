@@ -95,7 +95,8 @@ use `target/debug` in the path instead.
 Navigation follows declaration order, block shadowing, function parameter
 scope, forward function calls, and the rule that functions cannot capture
 variables declared at the top level. Navigation stays within the current
-document; Chuchu does not have modules or imports yet.
+document. The compiler supports [modules and imports](../language/modules.md);
+cross-file editor navigation is a separate extension capability.
 
 ## Build the current file
 

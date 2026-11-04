@@ -59,7 +59,7 @@ Names start with an ASCII letter or underscore and continue with ASCII letters, 
 
 Examples: `total`, `total_1`, `_value`, `squarePlus`.
 
-The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `be`, `reassign`, and `return`. Function names have [additional restrictions](functions.md#function-names).
+The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `be`, `reassign`, `return`, `err`, `record`, `module`, `use`, and `export`. Function names have [additional restrictions](functions.md#function-names).
 
 ## Whitespace and statements
 

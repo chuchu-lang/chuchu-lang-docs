@@ -46,6 +46,8 @@ renderer. Filesystem, linker, and internal backend errors may use plain messages
 | Invalid condition | `if 1 { show 1 }` | Use a boolean comparison such as `1 > 0`. |
 | Type mismatch | Reassigning `2.5` to an integer variable | Preserve the declared type. |
 | Invalid array | `[1, 2.0]` | Use homogeneous integer or float elements. |
+| Invalid record | Missing, repeated, unknown, or wrongly typed fields | Supply every declared field exactly once with the correct type; see [records](../language/records.md). |
+| Invalid import | A missing file, private member, or circular import | Check the relative path, `export` declaration, and dependency direction; see [modules](../language/modules.md). |
 | Missing return | A function without a value on all required paths | Return from both branches or add a fallback return. |
 | Unterminated block comment | A `/*` comment has no closing `*/` | Add `*/` to close the comment. |
 | Invalid source character | An unsupported symbol such as `#` | Use the current language syntax. |
@@ -74,17 +76,19 @@ This compiles, but running it reports division by zero. Other checked failures i
 - Overflow during integer array arithmetic or reduction.
 - String allocation or concatenation size failures.
 - EOF or a read failure in `input()`; use `try_input()` for recovery.
+- A failed `read_file` or `write_file`; use the `try_` forms for recovery.
 - Unwrapping a failed result or constructing an error with an invalid status.
 
 Checks remain active at O0, O1, O2, and O3.
 
 ## Recoverable errors
 
-`try_input`, `parse_int`, and `parse_float` return results instead of terminating
-on invalid input. Inspect `is_ok`, distinguish EOF with `is_eof`, and use
+`try_input`, `parse_int`, `parse_float`, `try_read_file`, and `try_write_file`
+return results so the program can handle failures. Inspect `is_ok`, distinguish EOF with `is_eof`, and use
 `error_message` to explain a failure. Your program chooses whether to retry or
 stop. Check success before `unwrap`; unwrapping an error still exits with a
-runtime diagnostic. See [input and results](../language/input-results.md).
+runtime diagnostic. See [input and results](../language/input-results.md) and
+[file I/O error codes](../language/files.md#recover-from-failures).
 
 ## Build and linker errors
 

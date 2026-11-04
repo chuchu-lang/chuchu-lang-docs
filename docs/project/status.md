@@ -12,7 +12,10 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 - Arithmetic, comparisons, grouping, and unary negation.
 - `if` / `else`, `while`, lexical scope, and block shadowing.
 - Top-level typed functions, forward calls, recursion, and mutual recursion.
-- Numerical built-ins: `abs`, `sqrt`, `min`, `max`, `sum`, `len`.
+- [Records](../language/records.md) with nested fields, independent copies, field reassignment, and typed functions.
+- [File-based modules](../language/modules.md), relative imports, private declarations, and exported functions and records.
+- [Whole-file UTF-8 I/O](../language/files.md) with direct and recoverable reads and writes.
+- Numerical built-ins: `abs`, `sqrt`, `min`, `max`, `sum`, `length`.
 - Scalar and string output through `show`.
 - UTF-8 input: `input()` returns a string; `try_input()` provides recoverable results.
 - Explicit number/string conversions and recoverable scalar results.
@@ -30,11 +33,14 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 |---|---|
 | Platforms | macOS ARM64/Intel, Linux x64 GNU, Windows x64 MSVC are native targets; see validation details below |
 | Arrays | 1–256 homogeneous numeric elements; no element assignment |
-| Function signatures | `int`, `float`, `bool`, `string`, and scalar `result<T>`; no array annotations |
+| Function signatures | `int`, `float`, `bool`, `string`, record types, and scalar/string `result<T>`; no array annotations |
 | Text | Strings implemented; no NUL bytes, indexing, interpolation, or character literals |
 | Comments | Line comments (`//`) and block comments (`/* ... */`); [colored annotations](../language/comments.md) in the docs |
 | Control flow | No `for`, `break`, `continue`, or logical operators |
-| Modules and data | No imports, user-defined types, dynamic collections, or file I/O API |
+| Modules | Relative file imports and exported functions/records; no packages, aliases, wildcards, or re-exports |
+| Records | No recursive fields, arrays of records, methods, equality, or whole-record output |
+| Files | Whole UTF-8 text files only; no binary I/O, streaming, append API, or directory operations |
+| Collections | Fixed-size numeric arrays; no dynamic collections |
 | Runtime | Standard input implemented; no JIT, GPU execution, or automatic parallelism |
 | Tooling | VS Code extension and native debugging implemented; full syntax/type checks run through Cheeku builds; no Chuchu expression evaluator, standalone language server, or browser playground |
 
@@ -55,6 +61,7 @@ and [native debugging](../tooling/debugging.md).
 
 ## Documentation versions
 
-The site currently documents one development line. We will only need separate versioned docs when released language versions have differences worth maintaining. Docusaurus supports snapshots without requiring them from the start.
+The site currently documents one development line. This update was checked
+against compiler `main` at `dd4c245` (modules and imports included). We will only need separate versioned docs when released language versions have differences worth maintaining. Docusaurus supports snapshots without requiring them from the start.
 
 When you encounter a mismatch, check your compiler checkout and open an issue in the [compiler repository](https://github.com/chuchu-lang/chuchu-core/issues) or [documentation repository](https://github.com/chuchu-lang/chuchu-lang-docs/issues).

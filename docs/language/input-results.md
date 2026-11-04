@@ -46,7 +46,7 @@ program to handle invalid numbers explicitly.
 A result contains an integer status and a scalar payload. Its annotation is
 `result<int>`, `result<float>`, `result<bool>`, or `result<string>`. Results can be
 stored, reassigned, passed to functions, and returned. Payload types must match
-exactly; nested results, array payloads, and implicit result conversions are unsupported.
+exactly; nested results, record and array payloads, and implicit result conversions are unsupported.
 
 | Operation | Meaning |
 | --- | --- |
@@ -77,6 +77,10 @@ function positive(text: string) be result<int> {
 assign value as positive("42")
 if is_ok(value) { show unwrap(value) }
 ```
+
+[File I/O](files.md) uses the same result operations: `try_read_file` returns
+`result<string>` and `try_write_file` returns `result<int>`. Plain `read_file`
+and `write_file` stop on failure, like `input`.
 
 ## Error codes
 
