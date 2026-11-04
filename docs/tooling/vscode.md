@@ -85,18 +85,22 @@ use `target/debug` in the path instead.
 - **Highlighting and snippets:** keywords, types, strings, comments, functions,
   arrays, and results; snippets for declarations, functions, loops, input,
   and result handling.
-- **Completions and hover:** keywords, built-ins, and visible document symbols,
-  with built-in documentation and declared function signatures.
+- **Completions and hover:** keywords, current built-ins (`length` and file I/O
+  included), and visible document symbols. After `.`, complete record fields
+  or exported functions and records from an imported module.
 - **Signature help:** function parameters while typing calls, including nested
   calls and typed error construction with `err<T>(code)`.
-- **Navigation:** Go to Definition, Find All References, occurrence highlighting,
-  document outline, and folding.
+- **Navigation:** Go to Definition follows record fields and imported declarations
+  across files. Find All References and occurrence highlighting search the current
+  document. The outline includes records and their fields; folding is supported.
 
 Navigation follows declaration order, block shadowing, function parameter
 scope, forward function calls, and the rule that functions cannot capture
-variables declared at the top level. Navigation stays within the current
-document. The compiler supports [modules and imports](../language/modules.md);
-cross-file editor navigation is a separate extension capability.
+variables declared at the top level. Relative [module imports](../language/modules.md)
+are resolved from the importing file, including dotted paths and unsaved edits
+in open dependencies. Field completion follows simple record initializers,
+copies, typed parameters, and function return annotations; build with Cheeku
+for complete type checking. These features require extension version 0.1.4 or newer.
 
 ## Build the current file
 
