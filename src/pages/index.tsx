@@ -22,7 +22,7 @@ const learningPaths = [
   },
   {
     number: '02', label: 'THE LANGUAGE', title: 'Find the right words.',
-    description: 'Variables, strings, functions, and arrays. Get familiar with the small vocabulary behind your code.',
+    description: 'Explore the syntax and type system, from variables and functions to records, modules, and file I/O.',
     href: '/docs/language/variables', action: 'Explore the reference', icon: '{ }', tone: 'yellow',
   },
   {
@@ -33,7 +33,7 @@ const learningPaths = [
 ];
 
 const topics = [
-  {label: 'Variables & types', description: 'A little less ceremony.', href: '/docs/language/types', symbol: 'Aa'},
+  {label: 'Variables & types', description: 'Inferred locals. Explicit signatures.', href: '/docs/language/types', symbol: 'Aa'},
   {label: 'Strings & text', description: 'Say it in UTF-8.', href: '/docs/language/strings', symbol: '" "'},
   {label: 'Arrays & built-ins', description: 'Make your numbers work.', href: '/docs/language/arrays', symbol: '[ ]'},
   {label: 'Errors & diagnostics', description: 'Find your way back to working.', href: '/docs/guides/errors', symbol: '!'},
@@ -48,7 +48,7 @@ export default function Home(): ReactNode {
 
   return (
     <Layout
-      title="Simple syntax. Your native journey starts here."
+      title="Readable syntax. Native compilation."
       description="The Chuchu documentation. Install the Cheeku compiler, write your first native program, and explore readable syntax, inferred types, functions, strings, arrays, debugging, VS Code support, and LLVM optimization."
       wrapperClassName="chuchu-docs-home">
       <main className={styles.home}>
@@ -67,10 +67,10 @@ export default function Home(): ReactNode {
             <p className={styles.badge}>
               <span className={styles.statusDot} aria-hidden="true" />
               THE CHUCHU DOCS
-              <span className={styles.badgeVersion}>v0.1 · early development</span>
+              <span className={styles.badgeVersion}>v0.1 documentation</span>
             </p>
             <h1 id="hero-title" className={styles.heroTitle}>
-              Simple syntax.<br />
+              Readable syntax.<br />
               <span className={styles.accent}>A native <span className={styles.underline}>start.
                 <svg viewBox="0 0 240 14" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M3 9 C28 1 52 15 78 7 S130 3 156 9 S210 13 237 5" />
@@ -78,8 +78,8 @@ export default function Home(): ReactNode {
               </span></span>
             </h1>
             <p className={styles.heroLead}>
-              A little curiosity. A few readable lines. Everything you need to
-              turn your next idea into a native program with Chuchu.
+              Build native programs with readable syntax, static types,
+              and LLVM optimization. Explore the language and its compiler.
             </p>
             <div className={styles.actions}>
               <Link className={styles.primary} to="/docs/getting-started/installation">
@@ -124,7 +124,7 @@ export default function Home(): ReactNode {
         </section>
 
         <div className={`${styles.container} ${styles.essentials}`} aria-label="Language essentials">
-          <span>SMALL LANGUAGE. REAL BUILDING BLOCKS.</span>
+          <span>READABLE SYNTAX. NATIVE EXECUTION.</span>
           <ul>
             {['Inferred types', 'UTF-8 strings', 'Functions', 'Numeric arrays', 'O0–O3'].map((label) => (
               <li key={label}><i aria-hidden="true" />{label}</li>
@@ -159,7 +159,7 @@ export default function Home(): ReactNode {
         <section className={`${styles.container} ${styles.section}`} aria-labelledby="quickstart-title">
           <div className={styles.quickstart}>
             <div className={styles.quickstartCopy}>
-              <p className={styles.eyebrow}><span aria-hidden="true" />02 · A LITTLE CHUCHU</p>
+              <p className={styles.eyebrow}><span aria-hidden="true" />02 · CHUCHU IN ACTION</p>
               <h2 id="quickstart-title">Looks like a thought.<br />Runs like a program.</h2>
               <p>Declare with <code>assign</code>. Update with <code>reassign</code>.
                 Read a string with <code>input()</code>. Say it with <code>show</code>.</p>
@@ -168,7 +168,7 @@ export default function Home(): ReactNode {
               </Link>
             </div>
             <div className={styles.firstProgram}>
-              <div className={styles.snippetLabel}><span aria-hidden="true">✳</span> A SMALL VOCABULARY</div>
+              <div className={styles.snippetLabel}><span aria-hidden="true">✳</span> CORE SYNTAX</div>
               <CodeBlock language="chuchu">{'assign name as input("Your name: ")\nshow "Hello, " + name + "!"'}</CodeBlock>
               <div className={styles.resultRow}><span>YOU TYPE</span><code>دنیا 🌍</code><span>Input returns a string.</span></div>
               <div className={styles.resultRow}><span>OUTPUT</span><code>Hello, دنیا 🌍!</code></div>
@@ -195,8 +195,8 @@ export default function Home(): ReactNode {
           </div>
           <div className={styles.compilerCard}>
             <div>
-              <span className={styles.cardLabel}>FOR THE CURIOUS</span>
-              <h3>There’s a whole compiler in here.</h3>
+              <span className={styles.cardLabel}>COMPILER ARCHITECTURE</span>
+              <h3>From source to native code.</h3>
               <p>Follow your code from its first token to LLVM IR and a native executable.</p>
             </div>
             <div className={styles.pipeline} aria-label="Compiler pipeline">
@@ -210,8 +210,8 @@ export default function Home(): ReactNode {
           <div className={styles.closingPanel}>
             <span className={styles.closingStar} aria-hidden="true">✳</span>
             <div>
-              <p className={styles.cardLabel}>CURIOSITY LOOKS GOOD ON YOU</p>
-              <h2 id="closing-title">Make something<br />a little more native.</h2>
+              <p className={styles.cardLabel}>BUILD WITH CHUCHU</p>
+              <h2 id="closing-title">Build your next<br />native program.</h2>
               <p>Your first Chuchu program is a few readable lines away.</p>
               <div className={styles.actions}>
                 <Link className={styles.primary} to="/docs/getting-started/installation">Let’s get started <Arrow /></Link>
@@ -220,7 +220,7 @@ export default function Home(): ReactNode {
             </div>
             <div className={styles.closingNote}>
               <span className={styles.statusDot} aria-hidden="true" />
-              <span>A small language, still growing.<br />Follow the docs as Chuchu evolves.</span>
+              <span>Statically typed. Compiled with LLVM.<br />Explore the language and compiler.</span>
             </div>
           </div>
         </section>

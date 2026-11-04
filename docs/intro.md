@@ -3,7 +3,7 @@ title: "Introduction"
 description: "Learn what Chuchu is, how its native compiler works, and where to start."
 ---
 
-Chuchu is a small, statically typed programming language built in Rust. Its compiler, **Cheeku**, turns `.chuchu` source files into native executables through LLVM.
+Chuchu is a statically typed, compiled programming language built in Rust. Its compiler, **Cheeku**, turns `.chuchu` source files into native executables through LLVM.
 
 The language combines readable statements with inferred local types, explicit function signatures, immutable UTF-8 strings, and checked numerical operations.
 
@@ -16,7 +16,7 @@ show greeting_number
 42
 ```
 
-## A small vocabulary
+## Core syntax
 
 | You want to… | Write… |
 |---|---|
@@ -39,7 +39,7 @@ show greeting_number
 - **Working with numbers?** Explore [arrays](language/arrays.md) and [built-in functions](language/builtins.md).
 - **Interested in the compiler?** Read about [architecture](project/architecture.md) and [optimization](tooling/optimization.md).
 
-:::info Early development
+:::info Version and compatibility
 These docs describe the current 0.1 codebase. Chuchu is evolving, and syntax and APIs may change. The compiler targets macOS, Linux x64 GNU and Windows x64 MSVC. The latest input, result, string, and debugger changes have been validated locally on macOS Apple Silicon; check current CI results for the other targets. See [language status](project/status.md) for supported features and limits.
 :::
 

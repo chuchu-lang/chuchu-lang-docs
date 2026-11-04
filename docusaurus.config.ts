@@ -7,7 +7,7 @@ const baseUrl = process.env.BASE_URL || '/';
 
 const config: Config = {
   title: 'Chuchu',
-  tagline: 'Simple syntax. Native possibilities.',
+  tagline: 'Readable syntax. Native compilation.',
   favicon: 'img/chuchu-logo-3.png',
   url,
   baseUrl,
