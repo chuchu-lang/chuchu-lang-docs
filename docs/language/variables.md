@@ -5,7 +5,7 @@ description: "Declare and reassign Chuchu variables, understand lexical scope, a
 
 ## Declare a variable
 
-Use `assign` for new declarations and `reassign` to change an existing value. Put `as` between the variable name and its value: `assign name as expression` or `reassign name as expression`. The `as` keyword is required for both statements.
+Use `assign` for new declarations and `reassign` to change an existing value. Use `declare` to create a variable now and give it a value later. Put `as` between the variable name and its value: `assign name as expression` or `reassign name as expression`. The `as` keyword is required for both statements.
 
 Use `assign name as expression`:
 
@@ -16,6 +16,35 @@ assign ready as true
 ```
 
 The initializer determines the variable's type. Local declarations do not use type annotations. A variable must be declared before it is read.
+
+## Declare a variable without a value
+
+Use `declare name` when a variable must exist before its value is known. It has no `as` clause:
+
+```chuchu
+declare total
+reassign total as 40
+reassign total as total + 2
+show total
+```
+
+The output is `42`. The first `reassign` fixes the variable's type, and every later assignment must preserve it, with the same `int`-to-`float` widening as any other variable. Declaring the same name twice in one scope is an error.
+
+A `declare`d variable can be read only when every path that reaches the read has already assigned it. Assign it in both branches of an `if` and the read afterwards is valid:
+
+```chuchu
+declare label
+if count > 0 {
+    reassign label as "some"
+} else {
+    reassign label as "none"
+}
+show label
+```
+
+Assignments inside a `while` body do not count after the loop, because the body might never run. An `if` that assigns in only one branch is the same. Reading the variable in either case is a compile error, as is reading it before any assignment.
+
+"First" means first in the source text. If the first `reassign` is inside an `if` branch, that statement sets the type for the rest of the program.
 
 ## Reassign a value
 
@@ -59,7 +88,7 @@ Names start with an ASCII letter or underscore and continue with ASCII letters, 
 
 Examples: `total`, `total_1`, `_value`, `squarePlus`.
 
-The lexer reserves `assign`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `be`, `reassign`, `return`, `err`, `record`, `module`, `use`, and `export`. Function names have [additional restrictions](functions.md#function-names).
+The lexer reserves `assign`, `declare`, `as`, `show`, `true`, `false`, `if`, `else`, `while`, `function`, `be`, `reassign`, `return`, `err`, `record`, `module`, `use`, and `export`. Function names have [additional restrictions](functions.md#function-names).
 
 ## Whitespace and statements
 

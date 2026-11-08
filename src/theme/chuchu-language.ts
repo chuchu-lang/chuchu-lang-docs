@@ -11,7 +11,7 @@ export const chuchuGrammar = {
   ])),
   comment: { pattern: /\/\/[^\r\n]*|\/\*[\s\S]*?(?:\*\/|$)/, greedy: true },
   string: { pattern: /"(?:\\[^\r\n]|[^"\\\r\n])*"/, greedy: true },
-  keyword: /\b(?:assign|as|show|reassign|if|else|while|function|be|return|err|record|module|use|export)\b/,
+  keyword: /\b(?:assign|declare|as|show|reassign|if|else|while|function|be|return|err|record|module|use|export)\b/,
   boolean: /\b(?:true|false)\b/,
   "class-name": /\b(?:int|float|bool|string|result)\b/,
   builtin: /\b(?:abs|sqrt|min|max|sum|length|read_file|try_read_file|write_file|try_write_file|input|try_input|parse_int|parse_float|to_string|ok|is_ok|is_eof|error_code|error_message|unwrap)(?=\s*\()/,

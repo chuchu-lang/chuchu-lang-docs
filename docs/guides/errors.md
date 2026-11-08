@@ -42,6 +42,7 @@ renderer. Filesystem, linker, and internal backend errors may use plain messages
 | Problem | Example | How to fix it |
 |---|---|---|
 | Undefined variable | `show missing` | Declare it first, or pass it as a function argument. |
+| Variable used before it has a value | `declare x` followed by `show x`, or an `if` that assigns `x` in only one branch | Assign it with `reassign x as ...` on every path before reading it. |
 | Duplicate declaration | Two `assign x as ...` statements in one scope | Use `reassign`, or choose another name. |
 | Invalid condition | `if 1 { show 1 }` | Use a boolean comparison such as `1 > 0`. |
 | Type mismatch | Reassigning `2.5` to an integer variable | Preserve the declared type. |

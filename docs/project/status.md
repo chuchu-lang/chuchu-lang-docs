@@ -8,6 +8,7 @@ These docs describe the **0.1 development codebase**. The package reports `0.1.0
 ## Implemented
 
 - Inferred local variables and typed reassignment.
+- Deferred declarations with `declare`, typed by the first assignment.
 - Signed integers, floats, booleans, immutable UTF-8 strings, and homogeneous fixed-size numeric arrays.
 - Arithmetic, comparisons, grouping, and unary negation.
 - `if` / `else`, `while`, lexical scope, and block shadowing.
