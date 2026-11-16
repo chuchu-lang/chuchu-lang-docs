@@ -7,6 +7,20 @@ description: "Write Chuchu if/else branches and while loops with boolean conditi
 
 `if` and `while` require a `bool` expression. Numbers and strings are not implicitly treated as true or false.
 
+## Combining conditions
+
+Use `and`, `or`, and `not` to build a `bool` condition. See [logical operators](operators.md#logical-operators).
+
+```chuchu
+assign score as 85
+if score >= 80 and score < 90 {
+    show 1
+}
+while not (score >= 90) {
+    reassign score as score + 5
+}
+```
+
 ## If and else
 
 ```chuchu
@@ -69,4 +83,4 @@ The output is `6`. The inner `j` exists only within the outer loop body.
 
 A `return` exits the enclosing function, including from inside a loop or branch. Functions must satisfy the compiler's [return rules](functions.md#returning-a-value).
 
-`for`, `break`, `continue`, and logical condition operators are not implemented.
+`for`, `break`, and `continue` are not implemented.
